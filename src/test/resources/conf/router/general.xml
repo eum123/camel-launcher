@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes id="camel" xmlns="http://camel.apache.org/schema/spring">
+
+
+	<route id="general">
+		<from uri="timer:hello?period=5000" />
+
+		<log message="Received ${body}:${threadName}" />
+
+		<to uri="log:cool" />
+
+	</route>
+
+</routes>
