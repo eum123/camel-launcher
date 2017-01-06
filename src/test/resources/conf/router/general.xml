@@ -7,7 +7,7 @@
 		<from uri="timer:hello?period=5000" />
 
 		<log message="Received ${body}:${threadName}" />
-
+   
 		<to uri="log:cool" />
 
 	</route>

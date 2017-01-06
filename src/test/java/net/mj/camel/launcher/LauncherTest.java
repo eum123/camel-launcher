@@ -1,5 +1,6 @@
 package net.mj.camel.launcher;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
@@ -21,13 +22,24 @@ public class LauncherTest {
 	public static void init() {
 		System.setProperty("CAMEL_HOME", "src/test/resources");
 		System.setProperty("CAMEL_CONF", "src/test/resources/conf");
+		System.setProperty("CAMEL_ROUTER", "src/test/resources/conf/router");
+		
 	}
 	
 	@Test
 	public void test() {
+
 		NotifyBuilder notify = new NotifyBuilder(camelContext).whenDone(10).create();
 		
-		notify.matches(10, TimeUnit.SECONDS);
+		
+		List routeList = camelContext.getRoutes();
+		
+		System.out.println("routeList :" + routeList);
+		
+		
+		System.out.println("----" + camelContext);
+		
+		notify.matches(1000, TimeUnit.SECONDS);
 	}
 	
 }

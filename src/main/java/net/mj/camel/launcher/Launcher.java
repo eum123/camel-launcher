@@ -7,6 +7,8 @@ import java.util.Set;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.StandardEnvironment;
 
 @SpringBootApplication
 @PropertySource("file:${CAMEL_CONF}/application.properties")
@@ -24,22 +26,26 @@ public class Launcher {
 	}
 	
 	private static void environment() {
-		camelEnvironment();
+		
+		systemEnvironment();
 		
 	}
 	
-	private static void camelEnvironment() {
-		String camelHome = System.getProperty("CAMEL_HOME", "./");
-		System.setProperty("CAMEL_HOME", camelHome);
+	private static void systemEnvironment() {
 		
-		String camelConf = System.getProperty("CAMEL_CONF", camelHome + "/conf");
-		System.setProperty("CAMEL_CONF", camelConf);
+		ConfigurableEnvironment environment = new StandardEnvironment();
 		
-		String routeConf = System.getProperty("CAMEL_ROUTE", camelConf + "/route");
-		System.setProperty("CAMEL_ROUTE", routeConf);
+		String camelHome = environment.getProperty("CAMEL_HOME", "./");
+		environment.getSystemProperties().put("CAMEL_HOME", camelHome);
+		
+		String camelConf = environment.getProperty("CAMEL_CONF", camelHome + "/conf");
+		environment.getSystemProperties().put("CAMEL_CONF", camelConf);
+		
+		String routerConf = environment.getProperty("CAMEL_ROUTER", camelConf + "/router");
+		environment.getSystemProperties().put("CAMEL_ROUTER", routerConf);
 	}
 	
-	protected static void printENV(){
+	private static void printENV(){
 		Properties p = System.getProperties();
 		Set<Object> keys = p.keySet();
 		
