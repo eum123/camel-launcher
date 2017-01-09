@@ -46,11 +46,17 @@ customer-beans.xml
 
 
 
+개인정보
+---------
+
+email : eummanjin@gmail.com
 
 
 
 
-
+참고
+-----
+처음 사용해서 기본 문법 남겨둠..
 
 
  2. 글머리
