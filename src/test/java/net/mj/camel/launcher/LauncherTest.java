@@ -24,6 +24,8 @@ public class LauncherTest {
 		System.setProperty("CAMEL_CONF", "src/test/resources/conf");
 		System.setProperty("CAMEL_ROUTER", "src/test/resources/conf/router");
 		
+		//사용자 정의 로그 설정
+		System.setProperty("logging.config", "file:/data/jin/project/camel/camel-launcher/src/test/resources/conf/logback-spring.xml");
 	}
 	
 	@Test

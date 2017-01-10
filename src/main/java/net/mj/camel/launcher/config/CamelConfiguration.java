@@ -1,5 +1,7 @@
 package net.mj.camel.launcher.config;
 
+import javax.validation.constraints.Min;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -19,6 +21,10 @@ public class CamelConfiguration {
 	
 	@Value("${camel.router.scan:true}")
 	private boolean isScan;
+	
+	@Value("${camel.router.reload.interval:1000}")
+	@Min(1000)
+	private int reloadInterval;
 	
 	public String getHome() {
 		return home;
@@ -43,5 +49,11 @@ public class CamelConfiguration {
 	}
 	public void setScan(boolean isScan) {
 		this.isScan = isScan;
+	}
+	public int getReloadInterval() {
+		return reloadInterval;
+	}
+	public void setReloadInterval(int reloadInterval) {
+		this.reloadInterval = reloadInterval;
 	}
 }

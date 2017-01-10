@@ -55,27 +55,16 @@ public class RouterLoader {
 	@PostConstruct
 	public void start() throws Exception {
 		
-		//load();
-		
-		System.out.println(configuration.getHome());
-		System.out.println(configuration.getConf());
-		System.out.println(configuration.getRouter());
-		System.out.println(configuration.isScan());
-		
-		
-		
-		System.out.println(configuration.isScan() + "===================== reloader : " + reloader);
 		if(configuration.isScan() || reloader != null) {
 			reloader.start();
 		}
 		
-		//load();
+		load();
 	}
 	
 	@PreDestroy
 	public void stop() {
 		
-		System.out.println("--------------------------------------destroy");
 		if(reloader != null) {
 			reloader.stop();
 		}
@@ -85,48 +74,4 @@ public class RouterLoader {
 	public void load() throws Exception {
 		reloader.load();
 	}
-	
-	private void load1() throws Exception {
-		String directory = "file:" + configuration.getRouter() + "/*.xml";
-		log.info("Loading additional Camel XML routes from: {}", directory);
-        try {
-            Resource[] xmlRoutes = applicationContext.getResources(directory);
-            for (Resource xmlRoute : xmlRoutes) {
-            	log.debug("Found XML route: {}", xmlRoute);
-                RoutesDefinition xmlDefinition = camelContext.loadRoutesDefinition(xmlRoute.getInputStream());
-                camelContext.addRouteDefinitions(xmlDefinition.getRoutes());
-            }
-        } catch (FileNotFoundException e) {
-        	log.debug("No XML routes found in {}. Skipping XML routes detection.", directory);
-        }
-	}
-	
-	private void load(String path) throws Exception {
-		InputStream is = null;
-		try {
-			
-			
-			is = new FileInputStream(new File(path));
-			
-			RoutesDefinition routes = camelContext.loadRoutesDefinition(is);
-
-			try {
-				camelContext.addRouteDefinitions(routes.getRoutes());
-			} catch (Exception e) {
-
-				camelContext.removeRouteDefinitions(routes.getRoutes());
-				log.warn(path + " route file load fail ", e);
-				
-			}
-		} finally {
-			if (is != null) {
-				try {
-					is.close();
-				} catch (IOException e) {
-					log.error(path + " route file close fail", e);
-				}
-			}
-		}
-	}
-
 }

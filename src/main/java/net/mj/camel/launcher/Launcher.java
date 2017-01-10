@@ -43,6 +43,7 @@ public class Launcher {
 		
 		String routerConf = environment.getProperty("CAMEL_ROUTER", camelConf + "/router");
 		environment.getSystemProperties().put("CAMEL_ROUTER", routerConf);
+		
 	}
 	
 	private static void printENV(){

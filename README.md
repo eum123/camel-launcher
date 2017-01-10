@@ -16,6 +16,11 @@ spring boot을 이용하여 apache camel 실행 시키는 기능
 java 실행 옵션에 CAME__HOME 을 반드시 추가 해야 한다.    
 ex) java -jar -DCAMEL_HOME=src/test/resources ....
 
+* CAMEL_HOME : camel home
+* CAMEL_CONF : 설정 파일 위
+* CAMEL_ROUTER : XML route 파일 위
+* logging.config : logback 설정 파일 위치 지정
+
 
 application.properties
 --------------
@@ -23,8 +28,9 @@ application.properties
 
 * camel.router.scan=true 
 > camel XML route 파일의 변경을 감지해서 자동 적용 여부. true-자동적용, false-미적용 
-* sample
-> ???
+* camel.router.reload.interval=5000
+> camel.router.scan=true일때 동작하며 설정 정보 reload 주기. 단위 millisecond
+
 
 
 

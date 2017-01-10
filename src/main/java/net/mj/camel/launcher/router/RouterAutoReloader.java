@@ -36,8 +36,11 @@ public class RouterAutoReloader {
 	private String directory = null;
 
 	public void start() throws Exception {
-		worker = new Worker();
-		worker.start();
+
+		if (configuration.isScan()) {
+			worker = new Worker();
+			worker.start();
+		}
 
 		directory = "file:" + configuration.getRouter() + "/*.xml";
 	}
@@ -59,40 +62,40 @@ public class RouterAutoReloader {
 
 		try {
 			Resource[] xmlRoutes = applicationContext.getResources(directory);
-			
+
 			for (Resource xmlRoute : xmlRoutes) {
-				
-				if(routes.containsKey(xmlRoute)) {
+
+				if (routes.containsKey(xmlRoute)) {
 					long lastModified = routes.get(xmlRoute);
-					if(xmlRoute.lastModified() > lastModified) {
-						//reset
+					if (xmlRoute.lastModified() > lastModified) {
+						// reset
 						routes.remove(xmlRoute);
 						routes.put(xmlRoute, xmlRoute.lastModified());
 					} else {
-						//no changed
+						// no changed
 						continue;
 					}
 				} else {
-					//new XML route
+					// new XML route
 					routes.put(xmlRoute, xmlRoute.lastModified());
 				}
-				
+
 				log.info("add XML route: {}" + xmlRoute);
-				
+
 				RoutesDefinition xmlDefinition = camelContext.loadRoutesDefinition(xmlRoute.getInputStream());
-				
+
 				try {
 					camelContext.addRouteDefinitions(xmlDefinition.getRoutes());
 				} catch (Exception e) {
 					log.error("cannot add XML route", e);
-					
-					if(xmlDefinition.getRoutes() != null && xmlDefinition.getRoutes().size() > 0) {
+
+					if (xmlDefinition.getRoutes() != null && xmlDefinition.getRoutes().size() > 0) {
 						camelContext.removeRouteDefinitions(xmlDefinition.getRoutes());
 					}
-					
+
 					throw e;
 				}
-				
+
 			}
 		} catch (FileNotFoundException e) {
 			log.debug("No XML routes found in {}. Skipping XML routes detection.", directory);
@@ -110,7 +113,6 @@ public class RouterAutoReloader {
 				} catch (Exception e) {
 
 				}
-
 			}
 		}
 
