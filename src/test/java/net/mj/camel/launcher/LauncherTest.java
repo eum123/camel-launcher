@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment=WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment=WebEnvironment.DEFINED_PORT) // server.port 설정에 따른다.
 public class LauncherTest {
 	@Autowired
     private CamelContext camelContext;
@@ -27,6 +27,8 @@ public class LauncherTest {
 		
 		//사용자 정의 로그 설정
 		System.setProperty("logging.config", "file:/data/jin/project/camel/camel-launcher/src/test/resources/conf/logback-spring.xml");
+		
+		System.setProperty("loader.path", "/data/jin/project/camel/camel-launcher/src/test/resources/lib/*.jar");
 	}
 	
 	@Test
@@ -42,7 +44,7 @@ public class LauncherTest {
 		
 		System.out.println("----" + camelContext);
 		
-		notify.matches(1000, TimeUnit.SECONDS);
+		notify.matches(10000, TimeUnit.SECONDS);
 	}
 	
 }
