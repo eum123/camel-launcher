@@ -22,9 +22,9 @@ public class CamelConfiguration {
 	@Value("${camel.router.scan:true}")
 	private boolean isScan;
 	
-	@Value("${camel.router.reload.interval:1000}")
+	@Value("${camel.router.scan.interval:1000}")
 	@Min(1000)
-	private int reloadInterval;
+	private int scanInterval;
 	
 	public String getHome() {
 		return home;
@@ -50,10 +50,10 @@ public class CamelConfiguration {
 	public void setScan(boolean isScan) {
 		this.isScan = isScan;
 	}
-	public int getReloadInterval() {
-		return reloadInterval;
+	public int getScanInterval() {
+		return scanInterval;
 	}
-	public void setReloadInterval(int reloadInterval) {
-		this.reloadInterval = reloadInterval;
+	public void setScanInterval(int scanInterval) {
+		this.scanInterval = scanInterval;
 	}
 }
