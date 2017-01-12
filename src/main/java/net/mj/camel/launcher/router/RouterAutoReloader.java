@@ -108,7 +108,7 @@ public class RouterAutoReloader {
 		public void run() {
 			while (isStart) {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(configuration.getScanInterval());
 					load();
 				} catch (Exception e) {
 
