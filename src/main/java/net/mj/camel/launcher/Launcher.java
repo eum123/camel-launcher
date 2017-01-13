@@ -32,9 +32,7 @@ public class Launcher {
 			environment();
 			
 			Thread.sleep(1000);
-
-			displayClass();
-
+		
 			SpringApplication application = new SpringApplication(Launcher.class);
 
 			application.run(args);
@@ -48,30 +46,7 @@ public class Launcher {
 		}
 	}
 
-	private static void displayClass() {
-		try {
-			Field f = ClassLoader.class.getDeclaredField("classes");
-			f.setAccessible(true);
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			while(true) {
-				
-				Vector<Class> classes = (Vector<Class>) f.get(classLoader);
-				for (int i = 0; i < classes.size(); i++) {
-					log.debug("loaded class:" + classes.get(i));
-				}
-				
-				if(classLoader.getParent() != null) {
-					classLoader = classLoader.getParent();
-				} else {
-					break;
-				}
-			}
-			
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
 
 	private static void environment() throws Exception {
 
