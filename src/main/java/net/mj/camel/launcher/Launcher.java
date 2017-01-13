@@ -100,7 +100,7 @@ public class Launcher {
 			}
 		});
 	}
-
+ 
 	private static void displaySystemProperties() {
 		Properties p = System.getProperties();
 		Set<Object> keys = p.keySet();
