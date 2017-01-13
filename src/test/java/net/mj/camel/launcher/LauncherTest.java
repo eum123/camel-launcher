@@ -28,7 +28,7 @@ public class LauncherTest {
 		//사용자 정의 로그 설정
 		System.setProperty("logging.config", "file:/data/jin/project/camel/camel-launcher/src/test/resources/conf/logback-spring.xml");
 		
-		System.setProperty("loader.path", "/data/jin/project/camel/camel-launcher/src/test/resources/lib/*.jar");
+		//System.setProperty("loader.path", "/data/jin/project/camel/camel-launcher/src/test/resources/lib/*.jar");
 	}
 	
 	@Test
@@ -44,7 +44,7 @@ public class LauncherTest {
 		
 		System.out.println("----" + camelContext);
 		
-		notify.matches(10000, TimeUnit.SECONDS);
+		notify.matches(10, TimeUnit.SECONDS);
 	}
 	
 }

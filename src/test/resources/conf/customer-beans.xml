@@ -22,5 +22,5 @@
 	<bean id="child" class="net.camel.launcher.processor.DummyProcessor" />
 -->
 
-	
+
 </beans>

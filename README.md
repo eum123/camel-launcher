@@ -27,9 +27,9 @@ application.properties
 환경 설정 
 
 * camel.router.scan=true 
-> camel XML route 파일의 변경을 감지해서 자동 적용 여부. true-자동적용, false-미적용 
-* camel.router.reload.interval=5000
-> camel.router.scan=true일때 동작하며 설정 정보 reload 주기. 단위 millisecond
+: camel XML route 파일의 변경을 감지해서 자동 적용 여부. true-자동적용, false-미적용 
+* camel.router.scan.interval=5000
+: camel.router.scan=true일때 동작하며 설정 정보 reload 주기. 단위 millisecond
 
 
 
