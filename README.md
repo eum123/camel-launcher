@@ -1,5 +1,13 @@
-# 설
+# 설명
+
 spring boot을 이용하여 apache camel 실행 시키는 기능
+
+
+배포
+====
+mvn package 를 통해 필요한 라이브러리 모두 취합하여 하나의 library로 만든다.
+아래 설정을 하여 실행한다.
+
  
  
 디렉토리 구성
@@ -18,7 +26,8 @@ ex) java -jar -DCAMEL_HOME=src/test/resources ....
 
 * CAMEL_HOME : camel home
 * CAMEL_CONF : 설정 파일 위
-* CAMEL_ROUTER : XML route 파일 위
+* CAMEL_ROUTER : XML route 파일 위치
+* CAMEL_LIB : 외부 라이브러리 추가 위치. 처음 동작 시 외부 라이브러리를 읽어서 반영한다.
 * logging.config : logback 설정 파일 위치 지정
 
 
@@ -59,30 +68,3 @@ email : eummanjin@gmail.com
 
 
 
-
-참고
------
-처음 사용해서 기본 문법 남겨둠..
-
-
- 2. 글머리
-# This is a H1
-## This is a H2
-### This is a H3
-#### This is a H4
-##### This is a H5
-
- 3. 들여쓰기
-> This is a blockqute
-
- 4. 순서없는 목록
-* One
-* Two
-* Three
-
- 5. 코드 블럭
-<pre><code> This is a code block </code></pre>
-
- 6. 이미지
-![Alt text](/path/to/img.jpg)
-![Alt text](http://swalloow.tistory.com/321451611/)
