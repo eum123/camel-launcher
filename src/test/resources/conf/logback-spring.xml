@@ -48,6 +48,24 @@
 	<logger name="org.eclipse.jetty" level="DEBUG" additivity="false">
 		<appender-ref ref="JETTY_LOG_FILE" />
 	</logger>
+	
+	<appender name="IOLogAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<prudent>true</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/log/io_%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}]:%m%n%wex</pattern>
+		</encoder>
+	</appender>
+	<logger name="ioLogger" level="DEBUG" additivity="false">
+		<appender-ref ref="IOLogAppender" />
+	</logger>
 
 	<root level="DEBUG">
 		<appender-ref ref="CONSOLE" />

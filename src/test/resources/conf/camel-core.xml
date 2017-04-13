@@ -12,6 +12,11 @@
   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
   http://camel.apache.org/schema/spring
   http://camel.apache.org/schema/spring/camel-spring.xsd">
+  
+  	<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- custom converter -->
+	<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  	<bean id="messageHistoryConverter" class="net.mj.camel.launcher.converter.MessageHistoryConverters" />
 
 	<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<!-- camel에 필요한 공통 설정 -->

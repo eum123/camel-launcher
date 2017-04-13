@@ -6,7 +6,7 @@
 	<route id="general">
 		<from uri="timer:hello?period=5000" />
 
-		<log message="Message:${body}" />
+		<log message="[${routeId}][${exchangeId}][${header.CamelCreatedTimestamp}][1][${header.CamelMessageHistory}][${body}][${header.CamelExceptionCaught}])" loggingLevel="INFO" logName="ioLogger"/>
     
 		<to uri="log:cool" />
 
