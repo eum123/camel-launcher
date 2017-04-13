@@ -3,11 +3,13 @@
 <routes id="camel" xmlns="http://camel.apache.org/schema/spring">
 
 
-	<route id="general">
+	<route id="logging">
 		<from uri="timer:hello?period=5000" />
 
-		<log message="[${routeId}][${exchangeId}][${header.CamelCreatedTimestamp}][1][${header.CamelMessageHistory}][${body}][${header.CamelExceptionCaught}])" loggingLevel="INFO" logName="ioLogger"/>
-    
+		<dotry>
+			<log message="${CamelCreatedTimestamp}[${routeId}][${exchangeId}][${header.CamelCreatedTimestamp}][1][${header.CamelMessageHistory}][${body}][${header.CamelExceptionCaught}])" loggingLevel="INFO" logName="ioLogger"/>
+    	</dotry>
+    	
 		<to uri="log:cool" />
 
 	</route>
