@@ -1,15 +1,8 @@
 package net.mj.camel.launcher;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
-import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,7 +44,9 @@ public class Launcher {
 	private static void environment() throws Exception {
 
 		systemEnvironment();
-		loadExternalLibrary();
+		
+		//load external library
+		LibraryLoader.load((String) environment.getSystemProperties().get("CAMEL_LIB"));
 	}
 
 	private static void systemEnvironment() {
@@ -72,34 +67,7 @@ public class Launcher {
 		environment.getSystemProperties().put("CAMEL_LIB", camelLib);
 
 	}
-
-	/**
-	 * 사용자 정의 library를 classloader에 추가한다.
-	 * @throws Exception
-	 */
-	private static void loadExternalLibrary() throws Exception {
-		String libDirString = (String) environment.getSystemProperties().get("CAMEL_LIB");
-
-		final URLClassLoader loader = (URLClassLoader) Thread.currentThread().getContextClassLoader();
-		final Method method = URLClassLoader.class.getDeclaredMethod("addURL", new Class[] { URL.class });
-		method.setAccessible(true);
-		
-		new File(libDirString).listFiles(new FileFilter() {
-			public boolean accept(File jar) { 
-				// jar 파일인 경우만 로딩
-				if (jar.toString().toLowerCase().contains(".jar")) {
-					try { 
-						// URLClassLoader.addURL(URL url) 메소드 호출
-						method.invoke(loader, new Object[] { jar.toURI().toURL() });
-						log.info(jar.getAbsolutePath() + " is loaded.");
-					} catch (Exception e) {
-						log.error(jar.getAbsolutePath() + " can't load.", e);
-					}
-				}
-				return false;
-			}
-		});
-	}
+	
  
 	private static void displaySystemProperties() {
 		Properties p = System.getProperties();
