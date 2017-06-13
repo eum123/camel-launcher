@@ -26,7 +26,7 @@ public class LauncherTest {
 		System.setProperty("CAMEL_ROUTER", "src/test/resources/conf/router");
 		
 		//사용자 정의 로그 설정
-		System.setProperty("logging.config", "file:/data/jin/project/camel/camel-launcher/src/test/resources/conf/logback-spring.xml");
+		//System.setProperty("logging.config", "file:/data/jin/project/camel/camel-launcher/src/test/resources/conf/logback-spring.xml");
 		
 		//System.setProperty("loader.path", "/data/jin/project/camel/camel-launcher/src/test/resources/lib/*.jar");
 	}
@@ -43,8 +43,13 @@ public class LauncherTest {
 		
 		
 		System.out.println("----" + camelContext);
-		
-		notify.matches(10, TimeUnit.SECONDS);
+		try {
+			Thread.sleep(1000000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		notify.matches(1000, TimeUnit.SECONDS);
 	}
 	
 }

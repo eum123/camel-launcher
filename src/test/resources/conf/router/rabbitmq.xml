@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes id="camel" xmlns="http://camel.apache.org/schema/spring">
+
+
+	<!--
+		rabbitMQ 연동 sample  
+	 -->
+	<route id="rabbit_1" autoStartup="false" startupOrder="2">
+		<from uri="timer:hello?period=5000" />
+		
+		<setBody>
+		  <simple>${body}Message at ${date:now:yyyy-MM-dd HH:mm:ss}</simple>
+		</setBody>
+
+		<log message="SNT:${body}" />
+    
+		<to uri="rabbitmq://172.70.11.71/TEST" />
+
+	</route>
+	
+	<route id="rabbit_2" autoStartup="false" startupOrder="1">
+		<from uri="rabbitmq://172.70.11.71/TEST" />
+		
+		<log message="RCV:${body}" />
+    
+		<to uri="log:cool" />
+
+	</route>
+
+</routes>

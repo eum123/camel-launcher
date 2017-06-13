@@ -3,7 +3,7 @@
 <routes id="camel" xmlns="http://camel.apache.org/schema/spring">
 
 
-	<route id="general">
+	<route id="general" autoStartup="false">
 		<from uri="timer:hello?period=5000" />
 
 		<log message="Message:${body}" />
