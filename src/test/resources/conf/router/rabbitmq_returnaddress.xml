@@ -37,6 +37,10 @@
 	<route id="rabbit_ra_3" autoStartup="true" >
 		<from uri="rabbitmq://172.70.11.71/TEST" />
 		
+		<setBody>
+		  <simple>${body} - #3</simple>
+		</setBody>
+		
 		<log message="RCV:${body}" />
     
 		<to uri="log:cool" />
