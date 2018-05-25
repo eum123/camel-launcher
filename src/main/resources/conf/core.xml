@@ -27,13 +27,6 @@
 
     </camelContext>
 
-    <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-    <!-- 사용자 Bean 설 -->
-    <!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-
-
-    <bean name="child" class="net.mj.camel.launcher.LibraryLoader"/>
-
 
     <import resource="file:${camel.path.conf}/customer-beans.xml" />
 

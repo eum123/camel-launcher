@@ -90,7 +90,7 @@
   </bean>
   -->
 
-	<import resource="file:${CAMEL_CONF}/camel-core.xml" />
-	<import resource="file:${CAMEL_CONF}/customer-beans.xml" />
+	<import resource="file:${camel.path.conf}/camel-core.xml" />
+	<import resource="file:${camel.path.conf}/customer-beans.xml" />
 
 </beans>
