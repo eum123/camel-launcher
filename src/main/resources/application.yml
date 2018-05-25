@@ -2,10 +2,6 @@ spring:
   profiles:
     active: local
 
-camel:
-  router:
-    scan: true
-    interval: 5000
 
 server:
   port: 7070
