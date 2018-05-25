@@ -1,0 +1,16 @@
+*/logs/*
+*/logs/*.log
+*.jar
+target/*
+target/classes/*
+*.iml
+*.txt
+
+# OS
+*DS_Store*
+
+# IDE
+.buildpath
+.project
+.idea
+.settings/
