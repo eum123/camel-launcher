@@ -18,9 +18,9 @@
 	<!-- 사용자 Bean 설 -->
 	<!--++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	
-<!-- 
-	<bean id="child" class="net.camel.launcher.processor.DummyProcessor" />
--->
+
+	<bean id="sample" class="net.mj.camel.launcher.process.SampleProcess" />
+
 
 
 </beans>

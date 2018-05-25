@@ -8,7 +8,7 @@
 		하나의 큐로 정보를 저장하고 요청한 client로 전송되는가를 확인하는 route파일.
 		rabbitmq가 반드시 설치 되어 있어야 테스트 가능함.
 	 -->
-	<route id="rabbit_ra_1" autoStartup="true" >
+	<route id="rabbit_ra_1" autoStartup="false" >
 		<from uri="netty-http:http://localhost:8080" />
 			
 			<setBody>
@@ -21,7 +21,7 @@
 
 	</route>
 	
-	<route id="rabbit_ra_2" autoStartup="true" >
+	<route id="rabbit_ra_2" autoStartup="false" >
 		<from uri="netty-http:http://localhost:8081" />
 		
 		<setBody>
@@ -34,7 +34,7 @@
 
 	</route>
 	
-	<route id="rabbit_ra_3" autoStartup="true" >
+	<route id="rabbit_ra_3" autoStartup="false" >
 		<from uri="rabbitmq://172.70.11.71/TEST" />
 		
 		<setBody>
