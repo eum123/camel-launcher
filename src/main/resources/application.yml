@@ -1,0 +1,43 @@
+spring:
+  profiles:
+    active: local
+
+camel:
+  router:
+    scan: true
+    interval: 5000
+
+server:
+  port: 7070
+
+
+---
+#local
+
+spring.profiles: local
+
+camel:
+  spring:
+    core-resource-name: core.xml
+  path:
+    home: /work/project/camel-launcher/src/main/resources
+    conf: ${camel.path.home}/conf
+  springboot:
+    xml-routes-reload-directory: ${camel.path.conf}/router/
+    xml-routes: file://${camel.path.conf}/router/*.xml
+    main-run-controller: true
+
+
+---
+spring.profiles: test
+
+camel:
+  spring:
+    core-resource-name: core.xml
+  path:
+    home: /work/project/camel-launcher/src/test/resources
+    conf: ${camel.path.home}/conf
+  springboot:
+    xml-routes-reload-directory: ${camel.path.conf}/router/
+    xml-routes: file://${camel.path.conf}/router/*.xml
+    main-run-controller: true

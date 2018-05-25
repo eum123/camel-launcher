@@ -8,28 +8,27 @@ import org.apache.camel.builder.NotifyBuilder;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.Profile;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment=WebEnvironment.DEFINED_PORT) // server.port 설정에 따른다.
+@ActiveProfiles("test")
 public class LauncherTest {
+
+	private static final Logger log = LoggerFactory.getLogger(LauncherTest.class);
+
 	@Autowired
     private CamelContext camelContext;
 	
-	@BeforeClass
-	public static void init() {
-		System.setProperty("CAMEL_HOME", "src/test/resources");
-		System.setProperty("CAMEL_CONF", "src/test/resources/conf");
-		System.setProperty("CAMEL_ROUTER", "src/test/resources/conf/router");
-		
-		//사용자 정의 로그 설정
-		//System.setProperty("logging.config", "file:/data/jin/project/camel/camel-launcher/src/test/resources/conf/logback-spring.xml");
-		
-		//System.setProperty("loader.path", "/data/jin/project/camel/camel-launcher/src/test/resources/lib/*.jar");
-	}
+
 	
 	@Test
 	public void test() {
@@ -39,10 +38,10 @@ public class LauncherTest {
 		
 		List routeList = camelContext.getRoutes();
 		
-		System.out.println("routeList :" + routeList);
-		
-		
-		System.out.println("----" + camelContext);
+		log.debug("routeList :" + routeList);
+
+
+		log.debug("----" + camelContext);
 		try {
 			Thread.sleep(1000000);
 		} catch (InterruptedException e) {

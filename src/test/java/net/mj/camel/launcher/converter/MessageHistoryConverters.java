@@ -21,13 +21,14 @@ public class MessageHistoryConverters implements TypeConverters{
 		
 		StringBuilder builder = new StringBuilder();
 		builder.append("[");
-		for(int i=0 ;i<list.size() ;i++) {
-			MessageHistory history = list.get(i);
+
+		list.forEach(x -> {
 			builder.append("{");
-			builder.append("\"RouteId\":").append(history.getRouteId());
-			builder.append(", \"elapsed\":").append(history.getElapsed());
+			builder.append("\"RouteId\":").append(x.getRouteId());
+			builder.append(", \"elapsed\":").append(x.getElapsed());
 			builder.append("}");
-		}
+		});
+
 		
 		builder.append("]");
 		return builder.toString();

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@ImportResource(locations="file:${CAMEL_CONF}/core.xml")
+//@ImportResource(locations="file:${CAMEL_CONF}/core.xml")
 public class BeanLoader {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BeanLoader.class);
