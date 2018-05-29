@@ -4,6 +4,8 @@
 
 
 	<route id="process" autoStartup="true">
+		<description>description.... 처음에 있어야함</description>
+
 		<from uri="timer:hello?period=5000" />
 
 		<log message="Message:${body}" />

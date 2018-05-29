@@ -6,7 +6,6 @@ spring:
 server:
   port: 7070
 
-
 ---
 #local
 
@@ -29,6 +28,7 @@ camel:
 
 spring.profiles: test
 
+
 camel:
   spring:
     core-resource-name: core.xml
@@ -39,3 +39,6 @@ camel:
     xml-routes-reload-directory: ${camel.path.conf}/router/
     xml-routes: file://${camel.path.conf}/router/process.xml
     main-run-controller: true
+
+logging:
+  config: file://${camel.path.conf}/logback-spring.xml
