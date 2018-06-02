@@ -30,7 +30,6 @@ public class RouteHelperTest {
 
         Assert.notNull(list);
 
-        System.out.println("------------" + list.size());
     }
 
     @Test
@@ -45,5 +44,24 @@ public class RouteHelperTest {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    @Test
+    public void xmlWrite() throws Exception {
+
+        String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                "<route xmlns=\"http://camel.apache.org/schema/spring\" autoStartup=\"true\" customId=\"true\" id=\"process\">\n" +
+                "    <description>description.... 처음에 있어야함111</description>\n" +
+                "    <from uri=\"timer:hello?period=5000\"/>\n" +
+                "    <log id=\"log1\" message=\"Message:${body}\"/>\n" +
+                "    <process id=\"process1\" ref=\"sample\"/>\n" +
+                "    <to id=\"to1\" uri=\"log:cool\"/>\n" +
+                "</route>\n";
+
+        RouteDefinition definition = new RouteDefinition();
+
+        ModelHelper.createModelFromXml(camelContext, xmlString, RouteDefinition.class );
+
+
     }
 }
