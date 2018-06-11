@@ -25,9 +25,9 @@ public class RouterSerivceTest {
     private RouterServiceImpl routerService;
 
     @Test
-    public void getRouteList() throws Exception {
+    public void getRouteEntityList() throws Exception {
 
-        List<RouteEntity> list = routerService.getRouterList();
+        List<RouteEntity> list = routerService.getRouteEntityList();
         Assert.notNull(list);
 
         Assert.notEmpty(list);
@@ -35,5 +35,15 @@ public class RouterSerivceTest {
         list.forEach(x->{
             Assert.notNull(x.getRouteId());
         });
+    }
+
+    @Test
+    public void getRouteEntity() throws Exception {
+
+        RouteEntity entity = routerService.getRouteEntity("process");
+        Assert.notNull(entity);
+
+
+
     }
 }

@@ -33,6 +33,14 @@ public class RouteHelperTest {
     }
 
     @Test
+    public void getRouteMBean() throws Exception {
+        ManagedRouteMBean bean = RouteHelper.getRouteMBean(camelContext, "process");
+        System.out.println(bean.toString());
+        Assert.notNull(bean);
+
+    }
+
+    @Test
     public void xml() throws Exception {
 
         List<Route> list = camelContext.getRoutes();

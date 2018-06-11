@@ -17,4 +17,8 @@ public class RouteHelper {
 
         return routeEntityList;
     }
+
+    public static ManagedRouteMBean getRouteMBean(CamelContext camelContext, String routeId) throws Exception {
+        return camelContext.getManagedRoute(routeId, ManagedRouteMBean.class);
+    }
 }

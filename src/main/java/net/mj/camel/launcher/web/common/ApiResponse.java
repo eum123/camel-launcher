@@ -6,10 +6,10 @@ import net.mj.camel.launcher.web.common.ApiResponseCode;
 
 @Data
 public class ApiResponse<T> {
-    @JsonProperty("code")
+    @JsonProperty("result_code")
     private ApiResponseCode code;
 
-    @JsonProperty("message")
+    @JsonProperty("result_message")
     private String message;
 
     @JsonProperty("result")

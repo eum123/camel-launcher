@@ -35,5 +35,10 @@ public class SampleTest {
 
         Path path = Paths.get(uri);
         System.out.println(Files.list(path).count());
+
+        Files.list(path).forEach(x -> {
+            System.out.println(x.toString());
+            System.out.println(x.getFileName().toString());
+        });
     }
 }

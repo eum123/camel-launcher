@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.scheduling.TaskScheduler;
+import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 
 @SpringBootApplication
 @ImportResource(locations = "file://${camel.path.conf}/${camel.spring.core-resource-name}")
@@ -37,4 +40,9 @@ public class Launcher {
 		Launcher.reloadDirectory = reloadDirectory;
 	}
 
+
+	@Bean
+	public TaskScheduler taskScheduler() {
+		return new ConcurrentTaskScheduler(); //single threaded by default
+	}
 }
