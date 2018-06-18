@@ -1,19 +1,19 @@
 package net.mj.camel.launcher.web.service.router;
 
 import lombok.Data;
-import net.mj.camel.launcher.helper.FileHelper;
-import net.mj.camel.launcher.web.common.XmlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResourceLoader;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
-import java.nio.file.*;
-import java.util.HashMap;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
@@ -26,7 +26,7 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
 
     private static final Logger log = LoggerFactory.getLogger(XmlRouteFileLoaderImpl.class);
 
-    /** routes , entity */
+    /** 파일 이름 , entity */
     private Map<String, RouteFileEntity> routeFilesModifyTime = new ConcurrentHashMap<>();
 
     @Value("${camel.springboot.xml-routes}")
@@ -35,6 +35,19 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
     private final Lock lock = new ReentrantLock();
     private final Condition condition = lock.newCondition();
     private boolean isUpdate = false;
+
+    public Set<String> getFileNames() throws Exception {
+        try {
+            lock.lock();
+            if(isUpdate) {
+                condition.await();
+            }
+            return routeFilesModifyTime.keySet();
+
+        } finally {
+            lock.unlock();
+        }
+    }
 
     @Scheduled(fixedDelay = 5000)
     public void update() throws Exception {

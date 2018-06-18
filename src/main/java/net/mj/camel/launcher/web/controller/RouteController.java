@@ -23,7 +23,7 @@ public class RouteController {
     @Autowired
     private RouterService routerService;
 
-    @RequestMapping(value = "/route/list", method= RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/routes", method= RequestMethod.GET, produces = "application/json")
     public ResponseEntity routeList() throws Exception {
 
         try {
@@ -45,5 +45,16 @@ public class RouteController {
         } catch (Exception e) {
             throw e;
         }
+    }
+
+    /**
+     * route file 목록
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/routeFiles", method= RequestMethod.GET, produces = "application/json")
+    public ResponseEntity getRouteFiles() throws Exception {
+
+        return null;
     }
 }
