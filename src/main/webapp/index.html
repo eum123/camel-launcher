@@ -17,6 +17,17 @@
     <link href="resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin.css" rel="stylesheet">
+
+    <style>
+        th {
+            display: table-cell;
+            vertical-align: inherit;
+            font-weight: bold;
+            text-align: center;
+        }
+
+    </style>
+
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -235,32 +246,22 @@
         <!-- Example DataTables Card-->
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fa fa-table"></i> Data Table Example</div>
+                <i class="fa fa-table"></i> Route List</div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered table-hover" id="routeListTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>File Name</th>
-                            <th>RouteID</th>
-                            <th>전체</th>
-                            <th>처리중</th>
-                            <th>오류</th>
-                            <th>시작시간</th>
-                            <th>상태</th>
+                            <th class="text-center">File Name</th>
+                            <th class="text-center">RouteID</th>
+                            <th class="text-center">전체</th>
+                            <th class="text-center">처리중</th>
+                            <th class="text-center">오류</th>
+                            <th class="text-center">시작시간</th>
+                            <th class="text-center">상태</th>
                         </tr>
                         </thead>
-                        <tbody id="routeList">
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>$320,800</td>
-                        </tr>
-                        </tbody>
+
                     </table>
                 </div>
             </div>
@@ -316,28 +317,52 @@
 <script>
     $(document).ready(function(){
 
+        /*
+        <thead>
+                        <tr>
+                            <th class="text-center">File Name</th>
+                            <th class="text-center">RouteID</th>
+                            <th class="text-center">전체</th>
+                            <th class="text-center">처리중</th>
+                            <th class="text-center">오류</th>
+                            <th class="text-center">시작시간</th>
+                            <th class="text-center">상태</th>
+                        </tr>
+                        </thead>
+         */
+
+//        var routeListTable = $("#routeListTable").DataTable({
+//            bPaginate: true,
+//            bLengthChange: true,
+//            bProcessing: true,
+//
+//            sAjaxSource: "http://127.0.0.1:7070/routes",
+//            sServerMethod: "GET",
+//            fnRowCallback: function( nRow, aData, iDisplayIndex ) {
+//                console.log("nRow:" + nRow + " aData:" + aData + " iDisplayIndex:" + iDisplayIndex);
+//                if ( jQuery.inArray(aData[0], gaiSelected) != -1 )
+//                {
+//                    $(nRow).addClass('row_selected');
+//                }
+//                return nRow;
+//            }
+//        });
+
         $.ajax("http://127.0.0.1:7070/routes",
             {
                 dataType: 'json',	//결과를 json으로 받아옴
                 type: 'get',
 
                 success:function(data){
+
                     console.log(data);
 
                     if(data.result_code == 'OK') {
-                        initRouteList(data);
+                        initRouteList(data.result);
                     } else {
                         //error
                     }
 
-
-//                    $.each(data,function(index,item){
-//                        var a = $("<h2></h2>").html(item.author.id);
-//                        var b = $("<img/>").attr("src",item.author.face);
-//                        var c = $("<p></p>").html(item.pubDate);
-//                        var d = $("<p></p>").html(item.body);
-//                        $("<div></div>").append(a,b,c,d).appendTo("#me");
-//                    });
                 },
                 error:function() {
 
@@ -346,41 +371,55 @@
     });
 
     function initRouteList(data) {
-        console.log($("#routeList").html());
 
-        //clear
-        var routeList = $("#routeList");
-        routeList.html("");
+        var routeListTable = $("#routeListTable").DataTable({
+            "columnDefs" : [ {
+                type : 'routeId',
+                targets : 1
+            }],
+            "lengthMenu": [ [ 5, 10, 50, -1 ], [ 5, 10, 50, "All" ] ],
+            "responsive": true,
+            "data": data,
+            "columns": [
+                {"data": "fileName", "className":"text-center"},
+                {"data": "routeId", "className":"text-center"},
+                {"data": "exchangesTotal", "className":"text-right"},
+                {"data": "exchangesInflight", "className":"text-right"},
+                {"data": "exchangesFailed", "className":"text-right"},
+                {"data": "startTimestamp", "className":"text-center"},
+                {"data": "state", "className":"text-center"}
+            ]
+//   한글 표현시 (http://ibrahimovic.tistory.com/m/20)
+//             ,
+//            "language": {
+//                "decimal" : "",
+//                "emptyTable" : "데이터가 없습니다.",
+//                "info" : "_START_ - _END_ (총 _TOTAL_ 명)",
+//                "infoEmpty" : "0명",
+//                "infoFiltered" : "(전체 _MAX_ 명 중 검색결과)",
+//                "infoPostFix" : "",
+//                "thousands" : ",",
+//                "lengthMenu" : "_MENU_ 개씩 보기",
+//                "loadingRecords" : "로딩중...",
+//                "processing" : "처리중...",
+//                "search" : "검색 : ",
+//                "zeroRecords" : "검색된 데이터가 없습니다.",
+//                "paginate" : {
+//                    "first" : "첫 페이지",
+//                    "last" : "마지막 페이지",
+//                    "next" : "다음",
+//                    "previous" : "이전"
+//                },
+//                "aria" : {
+//                    "sortAscending" : " :  오름차순 정렬",
+//                    "sortDescending" : " :  내림차순 정렬"
+//                }
+//            }
+        });
 
-        data.result.forEach(function(entry) {
-            var appendHtml = "<tr>";
-            console.log(entry.routeId);
-
-
-            appendHtml += "</tr>";
-            /*
-            <tr>
-                            <th>File Name</th>
-                            <th>RouteID</th>
-                            <th>전체</th>
-                            <th>처리중</th>
-                            <th>오류</th>
-                            <th>시작시간</th>
-                            <th>상태</th>
-                        </tr>
-                        </thead>
-                        <tbody id="routeList">
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>System Architect</td>
-                            <td>Edinburgh</td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>$320,800</td>
-                            <td>$320,800</td>
-                        </tr>
-             */
-        })
+    }
+    function generateTD(value, attribute) {
+        return "<td " + attribute + " >" + value +"</td>";
     }
 
 </script>

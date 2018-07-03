@@ -27,7 +27,8 @@ public class RouterServiceImpl implements RouterService {
 
         RouteHelper.getRouteMBeanList(camelContext).forEach(x->{
 
-            RouteEntity entity = new RouteEntity(x.getRouteId());
+            //TODO : 파일 이름 추가
+            RouteEntity entity = new RouteEntity("", x.getRouteId());
 
             try {
                 entity.setExchangesInflight(x.getExchangesInflight());
@@ -57,7 +58,8 @@ public class RouterServiceImpl implements RouterService {
 
         ManagedRouteMBean x = RouteHelper.getRouteMBean(camelContext, routeId);
         if(x != null) {
-            RouteEntity entity = new RouteEntity(x.getRouteId());
+            //TODO : 파일 이름 추가
+            RouteEntity entity = new RouteEntity("", x.getRouteId());
 
             try {
                 entity.setExchangesInflight(x.getExchangesInflight());

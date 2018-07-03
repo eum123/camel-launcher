@@ -10,6 +10,11 @@ import java.util.Date;
 
 
 public class RouteEntity {
+
+    @Getter
+    @JsonProperty("fileName")
+    private String fileName;
+
     @Getter
     @JsonProperty("routeId")
     private String routeId;
@@ -65,7 +70,8 @@ public class RouteEntity {
     @JsonProperty("state")
     private String state;
 
-    public RouteEntity(String routeId) {
+    public RouteEntity(String fileName, String routeId) {
+        this.fileName = fileName;
         this.routeId = routeId;
     }
 

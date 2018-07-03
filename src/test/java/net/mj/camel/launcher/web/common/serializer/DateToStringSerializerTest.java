@@ -21,8 +21,7 @@ public class DateToStringSerializerTest {
         mapper.registerModule(simpleModule);
 
 
-
-        RouteEntity entity = new RouteEntity("routeId");
+        RouteEntity entity = new RouteEntity("", "routeId");
 
         entity.setStartTimestamp(new Date());
 
