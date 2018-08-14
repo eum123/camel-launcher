@@ -20,6 +20,8 @@
 
     <script src="resources/js/callApi.js" language="JavaScript"></script>
     <script src="resources/js/common.js" language="JavaScript"></script>
+    <script src="resources/js/leftMenu.js" language="JavaScript"></script>
+    <script src="resources/js/topMenu.js" language="JavaScript"></script>
 
 
     <style>
@@ -35,44 +37,17 @@
 </head>
 
 <body class="fixed-nav sticky-footer" id="page-top">
-    <!-- Navigation-->
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <!-- end navigation -->
-    &nbsp;
+<!-- Navigation-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+</nav>
+<!-- end navigation -->
+&nbsp;
 
+<div class="container-fluid">
     <div class="row">
         <div class="col-sm-2">
-            <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
+            Route File List
+            <ul id="leftMenu" class="nav flex-column">
             </ul>
         </div>
         <div class="col-sm-10">
@@ -108,31 +83,32 @@
             </div>
         </div>
     </div>
-
-    <!-- /.container-fluid-->
-    <!-- /.content-wrapper-->
-    <footer class="sticky-footer">
-        <div class="container">
-            <div class="text-center">
-                <small>Copyright © Your Website 2018</small>
-            </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+<footer class="sticky-footer">
+    <div class="container">
+        <div class="text-center">
+            <small>Copyright © Your Website 2018</small>
         </div>
-    </footer>
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fa fa-angle-up"></i>
-    </a>
+    </div>
+</footer>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+</a>
 
 
 
 </body>
+
+
 <script>
 
     $(document).ready(function(){
 
         //현재 화면의 parameter확인
-        var routeId = parameter("routeId");
-console.log( routeId);
+        var fileName = parameter("fileName");
 
         //change route id
 
@@ -147,6 +123,14 @@ console.log( routeId);
                 alert('error');
             }
         );
+
+        //top menu
+        var topMenu = new TopMenu();
+        topMenu.load();
+
+        //left menu
+        var leftMenu = new LeftMenu('leftMenu');
+        leftMenu.load();
     });
 
 

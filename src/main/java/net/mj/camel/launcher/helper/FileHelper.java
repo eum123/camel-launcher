@@ -37,4 +37,12 @@ public class FileHelper {
 
 		return list;
 	}
+
+	public static String getOriginPath(String path) {
+		if(path != null && path.lastIndexOf("/") < path.length()) {
+			return path.substring(0, path.lastIndexOf("/") + 1);
+		} else {
+			return path;
+		}
+	}
 }

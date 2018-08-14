@@ -1,6 +1,7 @@
 package net.mj.camel.launcher.web.service.router;
 
 import lombok.Data;
+import net.mj.camel.launcher.helper.FileHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +52,7 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
 
     @Scheduled(fixedDelay = 5000)
     public void update() throws Exception {
-        String pathString = removeWildcard(routesPath);
+        String pathString = FileHelper.getOriginPath(routesPath);
 
         URI uri = new URI(pathString);
 
@@ -120,14 +121,6 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
 
         } finally {
             lock.unlock();
-        }
-    }
-
-    private String removeWildcard(String path) {
-        if(path != null && path.lastIndexOf("/") < path.length()) {
-            return path.substring(0, path.lastIndexOf("/") + 1);
-        } else {
-            return path;
         }
     }
 
