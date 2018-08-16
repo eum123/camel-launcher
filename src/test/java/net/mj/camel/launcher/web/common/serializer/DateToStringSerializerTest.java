@@ -2,7 +2,7 @@ package net.mj.camel.launcher.web.common.serializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import net.mj.camel.launcher.web.service.router.RouteEntity;
+import net.mj.camel.launcher.web.service.router.entity.RouteInfoEntity;
 import org.junit.Test;
 
 import java.time.Instant;
@@ -21,7 +21,7 @@ public class DateToStringSerializerTest {
         mapper.registerModule(simpleModule);
 
 
-        RouteEntity entity = new RouteEntity("", "routeId");
+        RouteInfoEntity entity = new RouteInfoEntity("", "routeId");
 
         entity.setStartTimestamp(new Date());
 

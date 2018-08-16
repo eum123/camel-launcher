@@ -1,6 +1,7 @@
 package net.mj.camel.launcher.web.service;
 
 import net.mj.camel.launcher.helper.FileHelper;
+import net.mj.camel.launcher.web.service.router.entity.RouteFileEntity;
 import net.mj.camel.launcher.web.service.router.XmlRouteFileLoader;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,7 +15,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.net.URI;
-import java.nio.file.FileSystem;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
@@ -44,5 +44,22 @@ public class XmlRouteFileLoaderImplTest {
 
     }
 
+    @Test
+    public void routeFileContent() throws Exception {
+        String path = FileHelper.getOriginPath(routesPath);
+
+        Files.list(Paths.get(new URI(path))).forEach(x -> {
+
+
+            try {
+                RouteFileEntity entity = service.getRouteFileContent(x.getFileName().toString());
+                Assert.assertNotEquals(entity.getModifyTime(), 0);
+                Assert.assertNotNull(entity.getRouteContents());
+                Assert.assertNotEquals(entity.getRouteContents().size(), 0);
+            } catch (Exception e) {
+
+            }
+        });
+    }
 
 }

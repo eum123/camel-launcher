@@ -1,4 +1,4 @@
-package net.mj.camel.launcher.web.service.router;
+package net.mj.camel.launcher.web.service.router.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -9,7 +9,7 @@ import net.mj.camel.launcher.web.common.serializer.DateToStringSerializer;
 import java.util.Date;
 
 
-public class RouteEntity {
+public class RouteInfoEntity {
 
     @Getter
     @JsonProperty("fileName")
@@ -70,7 +70,7 @@ public class RouteEntity {
     @JsonProperty("state")
     private String state;
 
-    public RouteEntity(String fileName, String routeId) {
+    public RouteInfoEntity(String fileName, String routeId) {
         this.fileName = fileName;
         this.routeId = routeId;
     }

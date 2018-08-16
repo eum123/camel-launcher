@@ -2,6 +2,7 @@ package net.mj.camel.launcher.web.service.router;
 
 import net.mj.camel.launcher.web.common.route.RouteHelper;
 import net.mj.camel.launcher.web.service.RouterService;
+import net.mj.camel.launcher.web.service.router.entity.RouteInfoEntity;
 import org.apache.camel.CamelContext;
 import org.apache.camel.api.management.mbean.ManagedRouteMBean;
 import org.slf4j.Logger;
@@ -19,16 +20,16 @@ public class RouterServiceImpl implements RouterService {
     @Autowired
     private CamelContext camelContext;
 
-    public List<RouteEntity> getRouteEntityList() throws Exception {
+    public List<RouteInfoEntity> getRouteEntityList() throws Exception {
 
 
-        List<RouteEntity> list = new ArrayList();
+        List<RouteInfoEntity> list = new ArrayList();
 
 
         RouteHelper.getRouteMBeanList(camelContext).forEach(x->{
 
             //TODO : 파일 이름 추가
-            RouteEntity entity = new RouteEntity("", x.getRouteId());
+            RouteInfoEntity entity = new RouteInfoEntity("", x.getRouteId());
 
             try {
                 entity.setExchangesInflight(x.getExchangesInflight());
@@ -54,12 +55,12 @@ public class RouterServiceImpl implements RouterService {
 
 
 
-    public RouteEntity getRouteEntity(String routeId) throws Exception {
+    public RouteInfoEntity getRouteEntity(String routeId) throws Exception {
 
         ManagedRouteMBean x = RouteHelper.getRouteMBean(camelContext, routeId);
         if(x != null) {
             //TODO : 파일 이름 추가
-            RouteEntity entity = new RouteEntity("", x.getRouteId());
+            RouteInfoEntity entity = new RouteInfoEntity("", x.getRouteId());
 
             try {
                 entity.setExchangesInflight(x.getExchangesInflight());

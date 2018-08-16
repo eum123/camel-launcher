@@ -1,7 +1,7 @@
 package net.mj.camel.launcher.web.service.router;
 
-import lombok.Data;
 import net.mj.camel.launcher.helper.FileHelper;
+import net.mj.camel.launcher.web.service.router.entity.RouteFileEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,7 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
@@ -124,24 +123,23 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
         }
     }
 
+    public RouteFileEntity getRouteFileContent(String fileName) throws InterruptedException {
+        try {
+            lock.lock();
+            if(isUpdate) {
+                condition.await();
+            }
+            //map에서 route파일 내용들을 추출.
+            if(routeFilesModifyTime.containsKey(fileName)) {
+                return routeFilesModifyTime.get(fileName);
+            } else {
+                return null;
+            }
 
-    @Data
-    class RouteFileEntity {
-        private Path path;
-        private String routesId;
-        private long modifyTime;
-
-        /** routeId, file 내용 */
-        private Map<String, String> routeContents = new TreeMap();
-
-        protected RouteFileEntity(Path path, String routesId, long modifyTime ) {
-            this.path = path;
-            this.routesId = routesId;
-            this.modifyTime = modifyTime;
-        }
-
-        public void addRouteContent(String routeId, String contents) {
-            routeContents.put(routeId, contents);
+        } finally {
+            lock.unlock();
         }
     }
+
+
 }

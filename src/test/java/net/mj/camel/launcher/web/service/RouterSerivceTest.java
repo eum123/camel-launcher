@@ -1,6 +1,6 @@
 package net.mj.camel.launcher.web.service;
 
-import net.mj.camel.launcher.web.service.router.RouteEntity;
+import net.mj.camel.launcher.web.service.router.entity.RouteInfoEntity;
 import net.mj.camel.launcher.web.service.router.RouterServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +27,7 @@ public class RouterSerivceTest {
     @Test
     public void getRouteEntityList() throws Exception {
 
-        List<RouteEntity> list = routerService.getRouteEntityList();
+        List<RouteInfoEntity> list = routerService.getRouteEntityList();
         Assert.notNull(list);
 
         Assert.notEmpty(list);
@@ -40,7 +40,7 @@ public class RouterSerivceTest {
     @Test
     public void getRouteEntity() throws Exception {
 
-        RouteEntity entity = routerService.getRouteEntity("process");
+        RouteInfoEntity entity = routerService.getRouteEntity("process");
         Assert.notNull(entity);
 
 

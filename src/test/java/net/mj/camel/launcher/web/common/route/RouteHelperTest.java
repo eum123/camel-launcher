@@ -1,11 +1,13 @@
 package net.mj.camel.launcher.web.common.route;
 
-import net.mj.camel.launcher.web.service.router.RouteEntity;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.Route;
 import org.apache.camel.api.management.mbean.ManagedRouteMBean;
+import org.apache.camel.converter.jaxp.XmlConverter;
 import org.apache.camel.model.ModelHelper;
 import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.RoutesDefinition;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
+import org.w3c.dom.Document;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -57,19 +61,92 @@ public class RouteHelperTest {
     @Test
     public void xmlWrite() throws Exception {
 
-        String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
-                "<route xmlns=\"http://camel.apache.org/schema/spring\" autoStartup=\"true\" customId=\"true\" id=\"process\">\n" +
-                "    <description>description.... 처음에 있어야함111</description>\n" +
-                "    <from uri=\"timer:hello?period=5000\"/>\n" +
-                "    <log id=\"log1\" message=\"Message:${body}\"/>\n" +
-                "    <process id=\"process1\" ref=\"sample\"/>\n" +
-                "    <to id=\"to1\" uri=\"log:cool\"/>\n" +
-                "</route>\n";
+        String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "\n" +
+                "<routes id=\"camel\" xmlns=\"http://camel.apache.org/schema/spring\">\n" +
+                "\t<description> routes 정보 </description>\n" +
+                "\n" +
+                "\t<route id=\"process\" autoStartup=\"true\">\n" +
+                "\t\t<description>description.... 처음에 있어야함</description>\n" +
+                "\n" +
+                "\t\t<from uri=\"timer:hello?period=5000\" />\n" +
+                "\n" +
+                "\t\t<log message=\"Message111:${body}\" />\n" +
+                "\n" +
+                "\t\t<process ref=\"sample\" />\n" +
+                "    \n" +
+                "\t\t<to uri=\"log:cool\" />\n" +
+                "\n" +
+                "\t</route>\n" +
+                "\n" +
+                "\t<route id=\"process1\" autoStartup=\"true\">\n" +
+                "\t\t<description>description.... 처음에 있어야함</description>\n" +
+                "\n" +
+                "\t\t<from uri=\"timer:hello?period=5000\" />\n" +
+                "\n" +
+                "\t\t<log message=\"Message111:${body}\" />\n" +
+                "\n" +
+                "\t\t<process ref=\"sample\" />\n" +
+                "\n" +
+                "\t\t<to uri=\"log:cool\" />\n" +
+                "\n" +
+                "\t</route>\n" +
+                "\n" +
+                "</routes>\n";
 
-        RouteDefinition definition = new RouteDefinition();
 
-        ModelHelper.createModelFromXml(camelContext, xmlString, RouteDefinition.class );
+        RoutesDefinition definition = ModelHelper.loadRoutesDefinition(camelContext, new ByteArrayInputStream(xmlString.getBytes()));
 
+
+        System.out.println(definition.getRoutes().size());
+
+
+        XmlConverter converter = new XmlConverter();
+        Document dom = converter.toDOMDocument(new ByteArrayInputStream(xmlString.getBytes()), (Exchange)null);
 
     }
+
+    @Test
+    public void readXml() throws Exception {
+        String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "\n" +
+                "<routes id=\"camel\" xmlns=\"http://camel.apache.org/schema/spring\">\n" +
+                "\t<description> routes 정보 </description>\n" +
+                "\n" +
+                "\t<route id=\"process\" autoStartup=\"true\">\n" +
+                "\t\t<description>description.... 처음에 있어야함</description>\n" +
+                "\n" +
+                "\t\t<from uri=\"timer:hello?period=5000\" />\n" +
+                "\n" +
+                "\t\t<log message=\"Message111:${body}\" />\n" +
+                "\n" +
+                "\t\t<process ref=\"sample\" />\n" +
+                "    \n" +
+                "\t\t<to uri=\"log:cool\" />\n" +
+                "\n" +
+                "\t</route>\n" +
+                "\n" +
+                "\t<route id=\"process1\" autoStartup=\"true\">\n" +
+                "\t\t<description>description.... 처음에 있어야함</description>\n" +
+                "\n" +
+                "\t\t<from uri=\"timer:hello?period=5000\" />\n" +
+                "\n" +
+                "\t\t<log message=\"Message111:${body}\" />\n" +
+                "\n" +
+                "\t\t<process ref=\"sample\" />\n" +
+                "\n" +
+                "\t\t<to uri=\"log:cool\" />\n" +
+                "\n" +
+                "\t</route>\n" +
+                "\n" +
+                "</routes>\n";
+
+
+        XmlConverter converter = new XmlConverter();
+        Document dom = converter.toDOMDocument(new ByteArrayInputStream(xmlString.getBytes()), (Exchange)null);
+
+        System.out.println(dom.getElementsByTagName("routes").item(0).getAttributes().getNamedItem("id").getNodeValue());
+    }
+
+
 }
