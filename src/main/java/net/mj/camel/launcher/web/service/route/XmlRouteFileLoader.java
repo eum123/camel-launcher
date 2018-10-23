@@ -1,7 +1,7 @@
-package net.mj.camel.launcher.web.service.router;
+package net.mj.camel.launcher.web.service.route;
 
 
-import net.mj.camel.launcher.web.service.router.entity.RouteFileEntity;
+import net.mj.camel.launcher.web.service.route.entity.RouteFileEntity;
 
 import java.util.Map;
 import java.util.Set;

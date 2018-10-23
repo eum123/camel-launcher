@@ -29,7 +29,8 @@ public class XmlUtilTest {
                 "\n" +
                 "</routes>\n").getBytes();
 
-        Assert.assertEquals("cameldkdkd", XmlUtil.getAttribute(bytes, "/routes/@id"));
+        XmlUtil util = new XmlUtil(bytes);
+        Assert.assertEquals("cameldkdkd", util.getAttributeByXPath("/routes/@id"));
 
     }
 }

@@ -1,7 +1,7 @@
-package net.mj.camel.launcher.web.service.router;
+package net.mj.camel.launcher.web.service.route;
 
 import net.mj.camel.launcher.helper.FileHelper;
-import net.mj.camel.launcher.web.service.router.entity.RouteFileEntity;
+import net.mj.camel.launcher.web.service.route.entity.RouteFileEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -131,6 +131,11 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
             }
             //map에서 route파일 내용들을 추출.
             if(routeFilesModifyTime.containsKey(fileName)) {
+
+                //read file
+                RouteFileEntity entity = routeFilesModifyTime.get(fileName);
+
+
                 return routeFilesModifyTime.get(fileName);
             } else {
                 return null;

@@ -1,6 +1,6 @@
 package net.mj.camel.launcher.web.service;
 
-import net.mj.camel.launcher.web.service.router.entity.RouteInfoEntity;
+import net.mj.camel.launcher.web.service.route.entity.RouteInfoEntity;
 
 import java.util.List;
 

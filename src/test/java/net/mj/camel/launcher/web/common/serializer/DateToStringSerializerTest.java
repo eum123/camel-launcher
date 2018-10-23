@@ -2,7 +2,7 @@ package net.mj.camel.launcher.web.common.serializer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import net.mj.camel.launcher.web.service.router.entity.RouteInfoEntity;
+import net.mj.camel.launcher.web.service.route.entity.RouteInfoEntity;
 import org.junit.Test;
 
 import java.time.Instant;

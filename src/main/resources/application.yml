@@ -18,8 +18,8 @@ camel:
     home: /work/project/camel-launcher/src/main/resources
     conf: ${camel.path.home}/conf
   springboot:
-    xml-routes-reload-directory: ${camel.path.conf}/router/
-    xml-routes: file://${camel.path.conf}/router/*.xml
+    xml-routes-reload-directory: ${camel.path.conf}/route/
+    xml-routes: file://${camel.path.conf}/route/*.xml
     main-run-controller: true
 
 
@@ -36,8 +36,8 @@ camel:
     home: /work/project/camel-launcher/src/test/resources
     conf: ${camel.path.home}/conf
   springboot:
-    xml-routes-reload-directory: ${camel.path.conf}/router/
-    xml-routes: file://${camel.path.conf}/router/process.xml
+    xml-routes-reload-directory: ${camel.path.conf}/route/
+    xml-routes: file://${camel.path.conf}/route/process.xml
     main-run-controller: true
 
 logging:

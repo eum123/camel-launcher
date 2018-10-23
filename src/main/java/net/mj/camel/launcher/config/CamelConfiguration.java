@@ -16,13 +16,13 @@ public class CamelConfiguration {
 	@Value("${camel.conf:./conf}")	
 	private String conf;
 	
-	@Value("${camel.router:./conf/router}")
+	@Value("${camel.route:./conf/route}")
 	private String router;
 	
-	@Value("${camel.router.scan:true}")
+	@Value("${camel.route.scan:true}")
 	private boolean isScan;
 	
-	@Value("${camel.router.scan.interval:1000}")
+	@Value("${camel.route.scan.interval:1000}")
 	@Min(1000)
 	private int scanInterval;
 	

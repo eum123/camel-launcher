@@ -1,4 +1,4 @@
-package net.mj.camel.launcher.web.service.router.entity;
+package net.mj.camel.launcher.web.service.route.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

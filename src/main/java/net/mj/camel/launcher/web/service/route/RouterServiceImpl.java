@@ -1,8 +1,8 @@
-package net.mj.camel.launcher.web.service.router;
+package net.mj.camel.launcher.web.service.route;
 
 import net.mj.camel.launcher.web.common.route.RouteHelper;
 import net.mj.camel.launcher.web.service.RouterService;
-import net.mj.camel.launcher.web.service.router.entity.RouteInfoEntity;
+import net.mj.camel.launcher.web.service.route.entity.RouteInfoEntity;
 import org.apache.camel.CamelContext;
 import org.apache.camel.api.management.mbean.ManagedRouteMBean;
 import org.slf4j.Logger;

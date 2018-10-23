@@ -1,9 +1,8 @@
-package net.mj.camel.launcher.web.service.router.entity;
+package net.mj.camel.launcher.web.service.route.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class RouteFileContentEntity {
@@ -14,6 +13,6 @@ public class RouteFileContentEntity {
     private String description;
 
     @JsonProperty("route")
-    private List<RouteContentEntity> routeEntity;
+    private List<RouteEntity> routeEntity;
 
 }

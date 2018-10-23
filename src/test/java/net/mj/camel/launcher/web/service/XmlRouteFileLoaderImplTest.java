@@ -1,8 +1,8 @@
 package net.mj.camel.launcher.web.service;
 
 import net.mj.camel.launcher.helper.FileHelper;
-import net.mj.camel.launcher.web.service.router.entity.RouteFileEntity;
-import net.mj.camel.launcher.web.service.router.XmlRouteFileLoader;
+import net.mj.camel.launcher.web.service.route.entity.RouteFileEntity;
+import net.mj.camel.launcher.web.service.route.XmlRouteFileLoader;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,7 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT) // server.port 설정에 따른다.
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // server.port 설정에 따른다.
 @ActiveProfiles("test")
 public class XmlRouteFileLoaderImplTest {
 
@@ -49,7 +49,6 @@ public class XmlRouteFileLoaderImplTest {
         String path = FileHelper.getOriginPath(routesPath);
 
         Files.list(Paths.get(new URI(path))).forEach(x -> {
-
 
             try {
                 RouteFileEntity entity = service.getRouteFileContent(x.getFileName().toString());

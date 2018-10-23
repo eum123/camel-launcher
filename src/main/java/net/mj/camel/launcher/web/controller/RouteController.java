@@ -1,9 +1,9 @@
 package net.mj.camel.launcher.web.controller;
 
 import net.mj.camel.launcher.web.common.ApiResponse;
-import net.mj.camel.launcher.web.service.router.entity.RouteInfoEntity;
+import net.mj.camel.launcher.web.service.route.entity.RouteInfoEntity;
 import net.mj.camel.launcher.web.service.RouterService;
-import net.mj.camel.launcher.web.service.router.XmlRouteFileLoader;
+import net.mj.camel.launcher.web.service.route.XmlRouteFileLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

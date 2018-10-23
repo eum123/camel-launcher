@@ -24,7 +24,7 @@ public class SampleTest {
 
     @Test
     public void path() throws Exception {
-        String pathString = "file:///work/project/camel-launcher/src/main/resources/conf/router/*.xml";
+        String pathString = "file:///work/project/camel-launcher/src/main/resources/conf/route/*.xml";
         if(pathString.lastIndexOf("/") < pathString.length()) {
             pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
         }

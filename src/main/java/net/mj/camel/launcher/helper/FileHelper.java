@@ -1,6 +1,8 @@
 package net.mj.camel.launcher.helper;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.FilenameFilter;
 
 public class FileHelper {
@@ -44,5 +46,22 @@ public class FileHelper {
 		} else {
 			return path;
 		}
+	}
+
+	/**
+	 * 파일 내용 읽기
+	 * @param path
+	 * @return
+	 * @throws Exception
+	 */
+	public static byte[] read(String path) throws Exception {
+		File f = new File(path);
+		byte[] contents = new byte[(int)f.length()];
+
+		try (FileInputStream reader = new FileInputStream(f)) {
+			reader.read(contents);
+			return contents;
+		}
+
 	}
 }

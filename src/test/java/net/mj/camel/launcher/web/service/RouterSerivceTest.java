@@ -1,7 +1,7 @@
 package net.mj.camel.launcher.web.service;
 
-import net.mj.camel.launcher.web.service.router.entity.RouteInfoEntity;
-import net.mj.camel.launcher.web.service.router.RouterServiceImpl;
+import net.mj.camel.launcher.web.service.route.entity.RouteInfoEntity;
+import net.mj.camel.launcher.web.service.route.RouterServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
