@@ -34,7 +34,7 @@ public class RoutesEntity {
 
             Namespace namespace = Namespace.getNamespace(RouteXmlConstants.DEFAULT_NAMESPACE);
 
-            routesElement.getChildren(RouteXmlTagNameConstants.ROUTE, namespace).forEach(x -> {
+            routesElement.getChildren(RouteXmlTagNameConstants.ROUTE, routesElement.getNamespace()).forEach(x -> {
                 RouteEntity entity = new RouteEntity();
                 entity.read(x);
 

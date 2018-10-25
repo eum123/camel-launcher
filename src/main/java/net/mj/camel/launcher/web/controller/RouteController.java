@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -71,8 +72,8 @@ public class RouteController {
      * @param fileName
      * @return
      */
-    @RequestMapping(value = "/routeFile/{fileName}", method= RequestMethod.GET, produces = "application/json")
-    public ResponseEntity getRouteFileContents(@PathVariable String fileName) throws Exception {
+    @RequestMapping(value = "/routeFile", method= RequestMethod.GET, produces = "application/json")
+    public ResponseEntity getRouteFileContents(@RequestParam String fileName) throws Exception {
         try {
             return new ResponseEntity<>(new ApiResponse(fileLoaderService.getRouteFileContent(fileName)), HttpStatus.OK);
         } catch (Exception e) {

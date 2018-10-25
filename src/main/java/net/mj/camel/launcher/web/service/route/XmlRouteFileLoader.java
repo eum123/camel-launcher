@@ -9,8 +9,6 @@ import java.util.Set;
 public interface XmlRouteFileLoader {
     public Set<String> getFileNames() throws Exception;
 
-    public Map<String, String> getRoutesContent(String routesId) throws InterruptedException;
-
     /**
      * 파일 내용을 구한다
      * @param fileName

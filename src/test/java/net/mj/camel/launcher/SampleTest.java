@@ -24,7 +24,8 @@ public class SampleTest {
 
     @Test
     public void path() throws Exception {
-        String pathString = "file:///work/project/camel-launcher/src/main/resources/conf/route/*.xml";
+        String pathString = "file://" +System.getProperty("user.dir") + "/src/test/resources/conf/route/*.xml";
+
         if(pathString.lastIndexOf("/") < pathString.length()) {
             pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
         }
@@ -40,5 +41,29 @@ public class SampleTest {
             System.out.println(x.toString());
             System.out.println(x.getFileName().toString());
         });
+    }
+
+    @Test
+    public void pathPattern() throws Exception {
+        String pathString = "file://" +System.getProperty("user.dir") + "/src/test/resources/conf/route/g*.xml";
+
+        String fileName = pathString.substring(pathString.lastIndexOf("/") +1);
+
+        if(pathString.lastIndexOf("/") < pathString.length()) {
+            pathString = pathString.substring(0, pathString.lastIndexOf("/") + 1);
+        }
+
+        System.out.println("pathString :" + pathString + " " + fileName);
+
+        URI uri = new URI(pathString);
+
+        Path path = Paths.get(uri);
+        System.out.println(Files.list(path).count());
+
+        Files.newDirectoryStream(path, fileName).forEach( x -> {
+            System.out.println(x.toString());
+        });
+
+
     }
 }

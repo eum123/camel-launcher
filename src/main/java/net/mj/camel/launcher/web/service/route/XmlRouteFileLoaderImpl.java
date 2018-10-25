@@ -1,5 +1,6 @@
 package net.mj.camel.launcher.web.service.route;
 
+import lombok.Setter;
 import net.mj.camel.launcher.helper.FileHelper;
 import net.mj.camel.launcher.web.service.route.entity.RouteFileEntity;
 import org.slf4j.Logger;
@@ -29,6 +30,7 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
     /** 파일 이름 , entity */
     private Map<String, RouteFileEntity> routeFilesModifyTime = new ConcurrentHashMap<>();
 
+    @Setter
     @Value("${camel.springboot.xml-routes}")
     private String routesPath;
 
@@ -51,45 +53,37 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
 
     @Scheduled(fixedDelay = 5000)
     public void update() throws Exception {
-        String pathString = FileHelper.getOriginPath(routesPath);
-
-        URI uri = new URI(pathString);
-
-        Path path = Paths.get(uri);
+        String filename = FileHelper.getFilename(routesPath);
+        Path path = Paths.get(new URI(FileHelper.getOriginPath(routesPath)));
 
         try {
 
             lock.lock();
-
             isUpdate = true;
 
-            Files.list(path).forEach(x->{
-
+            Files.newDirectoryStream(path, filename).forEach(x->{
                 try {
-
                     long modifyTime = Files.getLastModifiedTime(x, LinkOption.NOFOLLOW_LINKS).to(TimeUnit.MILLISECONDS);
-                    byte[] bytes = Files.readAllBytes(x);
-                    String fileName = x.getFileName().toString();
+
+                    String fileName = x.toString();
 
                     if (routeFilesModifyTime.containsKey(fileName)) {
                         //update
                         if(modifyTime != routeFilesModifyTime.get(fileName).getModifyTime()) {
-                            routeFilesModifyTime.put(fileName, new RouteFileEntity(x, fileName, modifyTime));
+                            routeFilesModifyTime.put(fileName, new RouteFileEntity(x, modifyTime));
 
                             log.info("Update : {}", x.toString());
                         }
                     } else {
                         //insert
-                        routeFilesModifyTime.put(fileName, new RouteFileEntity(x, fileName, modifyTime));
+                        routeFilesModifyTime.put(fileName, new RouteFileEntity(x, modifyTime));
 
                         log.info("Insert : {}", x.toString());
                     }
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    throw new RuntimeException("update fail : " + x.getFileName(), e);
                 }
             });
-
-        } catch(Exception e) {
 
         } finally {
             isUpdate = false;
@@ -100,29 +94,11 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
 
 
     /**
-     * RouteId에 해당하는 xml파일 내용을 구한다
-     * @param routesId
+     * path에 해당하는 routes 파일 내용을 반환한다.
+     * @param fileName path 포함
      * @return
+     * @throws InterruptedException
      */
-    public Map<String, String> getRoutesContent(String routesId) throws InterruptedException {
-
-        try {
-            lock.lock();
-            if(isUpdate) {
-                condition.await();
-            }
-            //map에서 route파일 내용들을 추출.
-            if(routeFilesModifyTime.containsKey(routesId)) {
-                return routeFilesModifyTime.get(routesId).getRouteContents();
-            } else {
-                return null;
-            }
-
-        } finally {
-            lock.unlock();
-        }
-    }
-
     public RouteFileEntity getRouteFileContent(String fileName) throws InterruptedException {
         try {
             lock.lock();
@@ -131,11 +107,6 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
             }
             //map에서 route파일 내용들을 추출.
             if(routeFilesModifyTime.containsKey(fileName)) {
-
-                //read file
-                RouteFileEntity entity = routeFilesModifyTime.get(fileName);
-
-
                 return routeFilesModifyTime.get(fileName);
             } else {
                 return null;

@@ -10,25 +10,27 @@ import java.util.TreeMap;
 @Data
 public class RouteFileEntity {
 
+    @JsonProperty("path")
     private Path path;
-
-    @JsonProperty("routesId")
-    private String routesId;
 
     @JsonProperty("modifiyTime")
     private long modifyTime;
 
     /** routeId, file 내용 */
-    @JsonProperty("routeList")
-    private Map<String, String> routeContents = new TreeMap();
+    @JsonProperty("routes")
+    private RoutesEntity routesEntity = null;
 
-    public RouteFileEntity(Path path, String routesId, long modifyTime ) {
+    public RouteFileEntity(Path path, long modifyTime ) throws Exception {
         this.path = path;
-        this.routesId = routesId;
         this.modifyTime = modifyTime;
+        this.routesEntity = loadRoutesFile(path);
     }
 
-    public void addRouteContent(String routeId, String contents) {
-        routeContents.put(routeId, contents);
+    private RoutesEntity loadRoutesFile(Path path) throws Exception {
+        RoutesEntity entity = new RoutesEntity();
+        entity.read(path.toString());
+
+        return entity;
     }
+
 }

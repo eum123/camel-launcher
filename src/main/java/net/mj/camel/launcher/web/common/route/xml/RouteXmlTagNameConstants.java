@@ -8,5 +8,8 @@ public class RouteXmlTagNameConstants {
     public static final String LOG = "log";
     public static final String TRANSFORM = "transform";
     public static final String PROCESS = "process";
+    public static final String DOTRY = "dotry";
+    public static final String SETBODY = "setBody";
+    public static final String SIMPLE = "simple";
 }
 

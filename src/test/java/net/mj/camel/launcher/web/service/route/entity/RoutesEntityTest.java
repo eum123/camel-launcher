@@ -12,7 +12,7 @@ public class RoutesEntityTest {
     public void read() throws Exception {
 
         RoutesEntity entity = new RoutesEntity();
-        entity.read(System.getProperty("user.dir") + "/src/test/resources/conf/router/general.xml");
+        entity.read(System.getProperty("user.dir") + "/src/test/resources/conf/route/general.xml");
 
         Assert.assertEquals(entity.getRoutesId(), "camel");
 
