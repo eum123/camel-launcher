@@ -7,7 +7,7 @@ function LeftMenu(ulId) {
 
 
     this.load = function() {
-        api_get("/routeFiles",
+        api_get("/routeFiles", null,
             function (data) {
 
                 data.forEach(function (value, index, array) {

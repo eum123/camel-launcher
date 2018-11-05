@@ -1,11 +1,11 @@
 var HOST = "http://127.0.0.1:7070";
 
-function api_get(path, successFunction, failFunction) {
+function api_get(path, parameter, successFunction, failFunction) {
     $.ajax(HOST + path,
         {
             dataType: 'json',	//결과를 json으로 받아옴
             type: 'get',
-
+            data: parameter,
             success: function (data) {
 
                 console.log(data);

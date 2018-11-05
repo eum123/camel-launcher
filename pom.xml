@@ -19,6 +19,8 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<camel.version>2.20.3</camel.version>
 		<jetty.version>9.3.14.v20161028</jetty.version>
+
+		<json-unit-fluent.version>1.5.3</json-unit-fluent.version>
 	</properties>
 
 
@@ -123,11 +125,17 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<groupId>net.javacrumbs.json-unit</groupId>
+			<artifactId>json-unit-fluent</artifactId>
+			<version>${json-unit-fluent.version}</version>
 			<scope>test</scope>
 		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>junit</groupId>-->
+			<!--<artifactId>junit</artifactId>-->
+			<!--<version>4.12</version>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
 
 	</dependencies>
 

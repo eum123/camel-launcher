@@ -1,87 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" itemscope="" itemtype="http://schema.org/Article" style="" class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths adownload webaudio no-battery blobconstructor contenteditable cors csscalc cssfilters mediaqueries no-regions classlist datalistelem details texttrackapi track filereader filesystem fullscreen getusermedia gamepads xhr2 quotamanagement performance raf no-stylescoped websocketsbinary no-webintents todataurljpeg todataurlwebp webp"><head>
+<html lang="en" dir="ltr" itemscope="" itemtype="http://schema.org/Article" style=""
+      class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths adownload webaudio no-battery blobconstructor contenteditable cors csscalc cssfilters mediaqueries no-regions classlist datalistelem details texttrackapi track filereader filesystem fullscreen getusermedia gamepads xhr2 quotamanagement performance raf no-stylescoped websocketsbinary no-webintents todataurljpeg todataurlwebp webp">
+<head>
     <meta charset="utf-8">
-    <meta property="twitter:account_id" content="1593210261">
-    <!-- Copyright (c) 2012 Google Inc.
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     *     http://www.apache.org/licenses/LICENSE-2.0
-     *
-     * Unless required by applicable law or agreed to in writing, software
-     * distributed under the License is distributed on an "AS IS" BASIS,
-     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     * See the License for the specific language governing permissions and
-     * limitations under the License.
-     *
-     * Author: Eric Bidelman - e.bidelman@google.com
-     *
-     *
-     *
-    -->
-    <title>Native HTML5 Drag and Drop - HTML5 Rocks</title>
-    <meta name="description" content="Drag-and-drop is yet another first class citizen in HTML5! This article explains how to enhance your web applications by adding native DnD functionality.">
-    <meta name="keywords" content="html5,html 5,html5 demos,html5 examples,javascript,css3,notifications,geolocation,web workers,apppcache,file api,filereader,indexeddb,offline,audio,video,drag and drop,chrome,sse,mobile">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <meta name="theme-color" content="#f04530">
-    <link rel="shortcut icon" href="/favicon.ico">
-    <link rel="alternate" type="application/rss+xml" title="HTML5 Rocks RSS" href="http://feeds.feedburner.com/html5rocks">
-    <meta name="google-site-verification" content="E1HOIDkksrWY5npenL8FeQhKn4Ujctd75iO2lfufSyA">
-    <meta itemprop="name" content="Native HTML5 Drag and Drop - HTML5 Rocks">
-    <meta itemprop="description" content="Drag-and-drop is yet another first class citizen in HTML5! This article explains how to enhance your web applications by adding native DnD functionality.">
-
-    <meta itemprop="image" content="https://www.html5rocks.com/static/images/html5rocks-logo-wings.png">
-
-
-
-
-    <link rel="canonical" href="https://www.html5rocks.com/tutorials/dnd/basics/">
-
-
-
-
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@ChromiumDev">
-    <meta name="twitter:creator" content="@ebidel">
-
-    <meta property="og:type" content="article">
-    <meta property="og:title" content="Native HTML5 Drag and Drop - HTML5 Rocks">
-    <meta property="og:url" content="https://www.html5rocks.com/en/tutorials/dnd/basics/">
-    <meta property="og:description" content="Drag-and-drop is yet another first class citizen in HTML5! This article explains how to enhance your web applications by adding native DnD functionality.">
-    <meta property="og:image" content="https://www.html5rocks.com/static/images/profiles/ericbidelman.png">
-    <meta property="og:site_name" content="HTML5 Rocks - A resource for open web HTML5 developers">
-
-
-
-    <link rel="author" href="https://www.google.com/profiles/118075919496626375791">
-
-
-    <link rel="publisher" href="https://plus.google.com/+GoogleChromeDevelopers">
-
-
-    <link rel="stylesheet" media="all" href="/static/css/v2-combined.min.css?20131111">
-
-
-
-
-
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300,400,400italic,600,800|Source+Code+Pro" rel="stylesheet">
-
-    <link rel="apple-touch-icon" href="/static/images/identity/HTML5_Badge_64.png">
-    <link rel="apple-touch-icon-precomposed" href="/static/images/identity/HTML5_Badge_64.png">
-
-    <script type="text/javascript" src="https://html5rocks.disqus.com/count.js" async=""></script><script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script><script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-MB3LRF"></script><script async="" src="//www.google-analytics.com/analytics.js"></script><script async="" src="//www.googletagmanager.com/gtm.js?id=GTM-MB3LRF"></script><script src="/static/js/modernizr.custom.82437.js"></script>
-
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5-els.js"></script>
-    <![endif]-->
 
 
     <style>
-        figure img { border: 1px solid #ccc; }
-        h1,h2,h3,h4 { clear: both; }
+        figure img {
+            border: 1px solid #ccc;
+        }
+
+        h1, h2, h3, h4 {
+            clear: both;
+        }
+
         /* Prevent the contents of draggable elements from being selectable. */
         [draggable] {
             -moz-user-select: none;
@@ -92,9 +24,11 @@
             -khtml-user-drag: element;
             -webkit-user-drag: element;
         }
+
         dd {
             padding: 5px 0;
         }
+
         .column {
             height: 150px;
             width: 150px;
@@ -116,19 +50,20 @@
             cursor: move;
             margin-bottom: 30px;
         }
+
         .column header {
             color: #fff;
             text-shadow: #000 0 1px;
             box-shadow: 5px;
             padding: 5px;
-            background: -moz-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+            background: -moz-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
             background: -webkit-gradient(linear, left top, right top,
-            color-stop(0, rgb(0,0,0)),
-            color-stop(0.50, rgb(79,79,79)),
-            color-stop(1, rgb(21,21,21)));
-            background: -webkit-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-            background: -ms-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
-            background: -o-linear-gradient(left center, rgb(0,0,0), rgb(79,79,79), rgb(21,21,21));
+            color-stop(0, rgb(0, 0, 0)),
+            color-stop(0.50, rgb(79, 79, 79)),
+            color-stop(1, rgb(21, 21, 21)));
+            background: -webkit-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
+            background: -ms-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
+            background: -o-linear-gradient(left center, rgb(0, 0, 0), rgb(79, 79, 79), rgb(21, 21, 21));
             border-bottom: 1px solid #ddd;
             -webkit-border-top-left-radius: 10px;
             -moz-border-radius-topleft: 10px;
@@ -141,18 +76,21 @@
             -o-border-radius-topright: 10px;
             border-top-right-radius: 10px;
         }
+
         #columns-full .column {
             -webkit-transition: -webkit-transform 0.2s ease-out;
             -moz-transition: -moz-transform 0.2s ease-out;
             -o-transition: -o-transform 0.2s ease-out;
             -ms-transition: -ms-transform 0.2s ease-out;
         }
+
         #columns-full .column.over,
         #columns-dragOver .column.over,
         #columns-dragEnd .column.over,
         #columns-almostFinal .column.over {
             border: 2px dashed #000;
         }
+
         #columns-full .column.moving {
             opacity: 0.25;
             -webkit-transform: scale(0.8);
@@ -160,6 +98,7 @@
             -ms-transform: scale(0.8);
             -o-transform: scale(0.8);
         }
+
         #columns-full .column .count {
             padding-top: 15px;
             font-weight: bold;
@@ -167,13 +106,12 @@
         }
     </style>
 
-    <script src="//html5rocks.disqus.com/count-data.js?1=https%3A%2F%2Fwww.html5rocks.com%2Ftutorials%2Fdnd%2Fbasics%2F"></script></head>
+
+</head>
 <body data-href="tutorials-dnd-basics" onload="" class="article tutorial">
 
 
 <div class="body-content">
-
-
 
 
     <article class="content-wrapper">
@@ -181,39 +119,42 @@
         <section class="container">
 
 
-
-
             <div class="content" id="article-content">
-
-
-
-
 
 
                 <h2 id="toc-dataTransfer">The DataTransfer object1</h2>
 
 
                 <div id="columns-almostFinal">
-                    <div class="column" draggable="true" style="opacity: 1;"><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><header>B</header></div>
-                    <div class="column" draggable="true"><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><header>C</header></div>
-                    <div class="column" draggable="true" style="opacity: 1;"><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"><header>A</header></div>
-                </div>
+                    <div class="column" draggable="true" style="opacity: 1;">
+                        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+                        <header>B</header>
+                    </div>
+                    <div class="column" draggable="true">
+                        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 
+                        <header>C</header>
+                    </div>
+                    <div class="column" draggable="true" style="opacity: 1;">
+                        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+                        <header>A</header>
+                    </div>
+                </div>
 
 
                 <script>
                     // Using this polyfill for safety.
-                    Element.prototype.hasClassName = function(name) {
+                    Element.prototype.hasClassName = function (name) {
                         return new RegExp("(?:^|\\s+)" + name + "(?:\\s+|$)").test(this.className);
                     };
 
-                    Element.prototype.addClassName = function(name) {
+                    Element.prototype.addClassName = function (name) {
                         if (!this.hasClassName(name)) {
                             this.className = this.className ? [this.className, name].join(' ') : name;
                         }
                     };
 
-                    Element.prototype.removeClassName = function(name) {
+                    Element.prototype.removeClassName = function (name) {
                         if (this.hasClassName(name)) {
                             var c = this.className;
                             this.className = c.replace(new RegExp("(?:^|\\s+)" + name + "(?:\\s+|$)", "g"), "");
@@ -224,11 +165,11 @@
                     var samples = samples || {};
 
                     // dragStart
-                    (function() {
+                    (function () {
                         var id_ = 'columns-dragStart';
                         var cols_ = document.querySelectorAll('#' + id_ + ' .column');
 
-                        this.handleDragStart = function(e) {
+                        this.handleDragStart = function (e) {
                             e.dataTransfer.effectAllowed = 'move';
                             e.dataTransfer.setData('text/html', 'blah'); // needed for FF.
 
@@ -245,11 +186,11 @@
                     })();
 
                     // dragEnd
-                    (function() {
+                    (function () {
                         var id_ = 'columns-dragEnd';
                         var cols_ = document.querySelectorAll('#' + id_ + ' .column');
 
-                        this.handleDragStart = function(e) {
+                        this.handleDragStart = function (e) {
                             e.dataTransfer.effectAllowed = 'move';
                             e.dataTransfer.setData('text/html', this.innerHTML); // needed for FF.
 
@@ -257,7 +198,7 @@
                             this.style.opacity = '0.4';
                         };
 
-                        this.handleDragOver = function(e) {
+                        this.handleDragOver = function (e) {
                             if (e.preventDefault) {
                                 e.preventDefault(); // Allows us to drop.
                             }
@@ -267,16 +208,16 @@
                             return false;
                         };
 
-                        this.handleDragEnter = function(e) {
+                        this.handleDragEnter = function (e) {
                             this.addClassName('over');
                         };
 
-                        this.handleDragLeave = function(e) {
+                        this.handleDragLeave = function (e) {
                             // this/e.target is previous target element.
                             this.removeClassName('over');
                         };
 
-                        this.handleDragEnd = function(e) {
+                        this.handleDragEnd = function (e) {
                             [].forEach.call(cols_, function (col) {
                                 col.removeClassName('over');
                             });
@@ -298,11 +239,11 @@
                     })();
 
                     // dragIcon
-                    (function() {
+                    (function () {
                         var id_ = 'columns-dragIcon';
                         var cols_ = document.querySelectorAll('#' + id_ + ' .column');
 
-                        this.handleDragStart = function(e) {
+                        this.handleDragStart = function (e) {
                             e.dataTransfer.effectAllowed = 'move';
                             e.dataTransfer.setData('text/html', this.innerHTML);
 
@@ -314,13 +255,13 @@
                             this.style.opacity = '0.4';
                         };
 
-                        this.handleDragLeave = function(e) {
+                        this.handleDragLeave = function (e) {
                             // this/e.target is previous target element.
 
                             this.removeClassName('over');
                         };
 
-                        this.handleDragEnd = function(e) {
+                        this.handleDragEnd = function (e) {
                             // this/e.target is the source node.
 
                             this.style.opacity = '1';
@@ -341,12 +282,12 @@
                     })();
 
                     // Almost final example
-                    (function() {
+                    (function () {
                         var id_ = 'columns-almostFinal';
                         var cols_ = document.querySelectorAll('#' + id_ + ' .column');
                         var dragSrcEl_ = null;
 
-                        this.handleDragStart = function(e) {
+                        this.handleDragStart = function (e) {
                             e.dataTransfer.effectAllowed = 'move';
                             e.dataTransfer.setData('text/html', this.innerHTML);
 
@@ -358,7 +299,7 @@
                             this.addClassName('moving');
                         };
 
-                        this.handleDragOver = function(e) {
+                        this.handleDragOver = function (e) {
                             if (e.preventDefault) {
                                 e.preventDefault(); // Allows us to drop.
                             }
@@ -368,17 +309,17 @@
                             return false;
                         };
 
-                        this.handleDragEnter = function(e) {
+                        this.handleDragEnter = function (e) {
                             this.addClassName('over');
                         };
 
-                        this.handleDragLeave = function(e) {
+                        this.handleDragLeave = function (e) {
                             // this/e.target is previous target element.
 
                             this.removeClassName('over');
                         };
 
-                        this.handleDrop = function(e) {
+                        this.handleDrop = function (e) {
                             // this/e.target is current target element.
 
                             if (e.stopPropagation) {
@@ -394,7 +335,7 @@
                             return false;
                         };
 
-                        this.handleDragEnd = function(e) {
+                        this.handleDragEnd = function (e) {
                             // this/e.target is the source node.
                             this.style.opacity = '1';
 
@@ -416,12 +357,12 @@
                     })();
 
                     // Full example
-                    (function() {
+                    (function () {
                         var id_ = 'columns-full';
                         var cols_ = document.querySelectorAll('#' + id_ + ' .column');
                         var dragSrcEl_ = null;
 
-                        this.handleDragStart = function(e) {
+                        this.handleDragStart = function (e) {
                             e.dataTransfer.effectAllowed = 'move';
                             e.dataTransfer.setData('text/html', this.innerHTML);
 
@@ -431,7 +372,7 @@
                             this.addClassName('moving');
                         };
 
-                        this.handleDragOver = function(e) {
+                        this.handleDragOver = function (e) {
                             if (e.preventDefault) {
                                 e.preventDefault(); // Allows us to drop.
                             }
@@ -441,16 +382,16 @@
                             return false;
                         };
 
-                        this.handleDragEnter = function(e) {
+                        this.handleDragEnter = function (e) {
                             this.addClassName('over');
                         };
 
-                        this.handleDragLeave = function(e) {
+                        this.handleDragLeave = function (e) {
                             // this/e.target is previous target element.
                             this.removeClassName('over');
                         };
 
-                        this.handleDrop = function(e) {
+                        this.handleDrop = function (e) {
                             // this/e.target is current target element.
 
                             if (e.stopPropagation) {
@@ -472,7 +413,7 @@
                             return false;
                         };
 
-                        this.handleDragEnd = function(e) {
+                        this.handleDragEnd = function (e) {
                             // this/e.target is the source node.
                             [].forEach.call(cols_, function (col) {
                                 col.removeClassName('over');
@@ -499,213 +440,5 @@
 
 
 
-
-
-
-    <script>
-        window.isCompatible = function() {
-
-            return Modernizr.draganddrop;
-
-        };
-
-        if(navigator.share !== undefined) {
-            document.addEventListener('DOMContentLoaded', e => {
-                var shareBox = document.querySelector('aside.share');
-            if(shareBox !== undefined) { shareBox.classList.toggle('native'); }
-
-            var shareBtn = document.querySelector('aside.share a.android');
-            shareBtn.addEventListener('click', clickEvent => {
-                clickEvent.preventDefault();
-            const title = "Native HTML5 Drag and Drop";
-            const url = "https://www.html5rocks.com/tutorials/dnd/basics/";
-            navigator.share({title: title, text: url, url: url})
-                .then(() => console.log('Successful share'),
-                error => console.log('Error sharing:', error));
-        });
-        });
-        }
-
-        if (isCompatible() === false) {
-            document.getElementById('notcompatible').className = '';
-        }
-
-        function _prettyPrint() {
-            if (typeof customPrettyPrintLanguage != 'undefined') {
-                customPrettyPrintLanguage();
-            }
-            prettyPrint();
-        }
-    </script>
-    <script async="" src="/static/js/prettify.min.js" onload="_prettyPrint()"></script>
-    <!-- Google Tag Manager -->
-    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-XXXX"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-        '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-MB3LRF');</script>
-    <!-- End Google Tag Manager -->
-
-
-</div>
-
-<script>
-    (function() {
-
-        // Kill feedburner and marketing tracking arguments, but let them register
-        // before we do it.
-        setTimeout(function() {
-            if (/^\?utm_/.test(document.location.search) &&
-                window.history.replaceState) {
-                window.history.replaceState(
-                    {}, '', document.location.href.replace(/\?utm_.*/, ''));
-            }
-        }, 2000);
-
-        var siteHeader = document.getElementById('siteheader');
-        var navToggle = document.getElementById('navtoggle');
-        var siteNav = document.getElementById('sitenav');
-
-        function toggle(target, forceActive) {
-
-            if (typeof toc !== 'undefined') {
-                // Switch off whichever one is not the
-                // current target
-                if (target === toc)
-                    siteNav.classList.remove('active');
-                else
-                    toc.classList.remove('active');
-            }
-
-            // Toggle if no force parameter is set
-            if (typeof forceActive === 'undefined') {
-                target.classList.toggle('active');
-            } else {
-                if (forceActive)
-                    target.classList.add('active');
-                else
-                    target.classList.remove('active');
-            }
-
-            // now find out what the set state ended up being
-            var isActive = target.classList.contains('active');
-
-            if (isActive)
-                siteHeader.classList.add('expanded');
-            else
-                siteHeader.classList.remove('expanded');
-
-        }
-
-        navToggle.addEventListener('click', function(e) {
-            toggle(siteNav);
-            e.preventDefault();
-        });
-
-
-
-        var tocToggle = document.getElementById('toctoggle');
-        var toc = document.getElementById('toc');
-        var articleMeta = document.getElementById('article-meta');
-        var articleContent = document.getElementById('article-content');
-        var articleMetaHeight = 0;
-        var articleMetaMaxY = 0;
-        var articleMetaMinY = 0;
-        var articleContentPadding = 200;
-
-        var tocLinks = document.querySelectorAll('.toc a');
-        for (var t = 0; t < tocLinks.length; t++)
-            tocLinks[t].addEventListener('click', onTocLinkClick);
-
-        tocToggle.addEventListener('click', function(e) {
-            toggle(toc);
-            e.preventDefault();
-        });
-
-        toc.addEventListener('click', function(e) {
-            if (e.target !== siteNav)
-                toggle(toc, false);
-        });
-
-        function onTocLinkClick() {
-            ga('send', 'event', 'Interactions', 'TOC', 'TOC Clicked');
-        }
-
-        function setMinScrollYFromMetaY() {
-            var scrollPosition = window.scrollY;
-
-            var articleMetaBounds = articleMeta.getBoundingClientRect();
-            var articleMetaTop = Math.max(352,
-                articleMetaBounds.top - 20 + scrollPosition);
-
-            articleMetaHeight = articleMetaBounds.bottom - articleMetaBounds.top;
-            articleMetaMinY = articleMetaTop;
-        }
-
-        function setMaxScrollYFromContentHeight() {
-
-            var scrollPosition = window.scrollY;
-
-            var articleContentBounds = articleContent.getBoundingClientRect();
-            var articleContentTop = articleContentBounds.top + scrollPosition;
-            var articleContentHeight = articleContentBounds.bottom - articleContentBounds.top;
-
-            articleMetaMaxY = articleContentTop +
-                articleContentHeight -
-                articleMetaHeight -
-                articleContentPadding;
-
-        }
-
-        function onScroll(e) {
-
-            if (window.scrollY >= articleMetaMinY) {
-
-                articleMeta.classList.add('sticky');
-
-                var articleMetaTop = 22 - Math.max(0, window.scrollY - articleMetaMaxY);
-                articleMeta.style.top = articleMetaTop + 'px';
-
-            } else {
-                articleMeta.classList.remove('sticky');
-                articleMeta.style.top = 'auto';
-            }
-        }
-
-        if (articleMeta.getBoundingClientRect) {
-            setMinScrollYFromMetaY();
-            setMaxScrollYFromContentHeight();
-            document.addEventListener('scroll', onScroll);
-            window.addEventListener('load', setMaxScrollYFromContentHeight, false);
-        }
-
-
-    })();
-</script>
-<script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-    ga('create', 'UA-15028909-1', 'auto');
-    ga('create', 'UA-49880327-4', 'auto', {'name': 'html5rocks'});
-
-    ga('send', 'pageview');
-    ga('html5rocks.send', 'pageview');
-
-</script>
-<!-- Google Tag Manager -->
-<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-XXXX"
-                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MB3LRF');</script>
-<!-- End Google Tag Manager -->
-
-
-</body></html>
+</body>
+</html>
