@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+
+<configuration scan="true" scanPeriod="30 seconds">
+	<!-- Defined variables etc. -->
+	<include resource="org/springframework/boot/logging/logback/defaults.xml" />
+	<include
+		resource="org/springframework/boot/logging/logback/console-appender.xml" />
+	<jmxConfigurator/>
+	
+	<!-- overridden two properties -->
+	<property name="CONSOLE_LOG_PATTERN"
+		value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}000){faint} %clr(%5p) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%35.35t]){faint} %clr([%+5line]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wex" />
+
+	<!--
+	<property name="LOG_DIR" value="/data/jin/project/camel/camel-launcher/src/test/resources" />
+
+	<appender name="FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<prudent>true</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/log/camel.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}000 %5p ${PID:- } -==- [%t]
+				[%+5line] %-40.40logger{39} : %m%n%wex</pattern>
+		</encoder>
+	</appender>
+
+
+	<appender name="JETTY_LOG_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<prudent>true</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/log/jetty.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}000 %5p ${PID:- } -==- [%t]
+				[%+5line] %-40.40logger{39} : %m%n%wex</pattern>
+		</encoder>
+	</appender>
+	<logger name="org.eclipse.jetty" level="DEBUG" additivity="false">
+		<appender-ref ref="JETTY_LOG_FILE" />
+	</logger>
+	
+	<appender name="IOLogAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+		<prudent>true</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/log/io_%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}]:%m%n%wex</pattern>
+		</encoder>
+	</appender>
+	<logger name="ioLogger" level="DEBUG" additivity="false">
+		<appender-ref ref="IOLogAppender" />
+	</logger>
+-->
+	<root level="DEBUG">
+		<appender-ref ref="CONSOLE" />
+	<!--	<appender-ref ref="FILE" /> -->
+	</root>
+
+</configuration>

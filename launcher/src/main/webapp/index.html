@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Camel Admin</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link href="resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <script src="resources/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="resources/vendor/datatables/dataTables.bootstrap4.js"></script>
+
+    <script src="resources/js/callApi.js" language="JavaScript"></script>
+    <script src="resources/js/leftMenu.js" language="JavaScript"></script>
+    <script src="resources/js/topMenu.js" language="JavaScript"></script>
+
+    <style>
+        th {
+            display: table-cell;
+            vertical-align: inherit;
+            font-weight: bold;
+            text-align: center;
+
+        }
+
+    </style>
+
+</head>
+
+<body class="fixed-nav sticky-footer" id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+</nav>
+<!-- end navigation -->
+&nbsp;
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            Route File List
+            <ul id="liId" class="nav flex-column">
+            </ul>
+        </div>
+        <div class="col-sm-10">
+            <!-- Example DataTables Card-->
+            <div class="card mb-3">
+                <div class="card-header">
+                    <i class="fa fa-table"></i> Route List
+                </div>
+                <div class="card-body">
+
+                    <table class="table table-bordered" id="routeListTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                            <th class="text-center">File Name</th>
+                            <th class="text-center">RouteID</th>
+                            <th class="text-center">전체</th>
+                            <th class="text-center">처리중</th>
+                            <th class="text-center">오류</th>
+                            <th class="text-center">시작시간</th>
+                            <th class="text-center">상태</th>
+                        </tr>
+                        </thead>
+
+                    </table>
+
+                </div>
+                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+<footer class="sticky-footer">
+    <div class="container">
+        <div class="text-center">
+            <small>Copyright © Your Website 2018</small>
+        </div>
+    </div>
+</footer>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+
+
+
+</body>
+
+
+<script>
+    var routeListTable = $("#routeListTable").DataTable({
+        "columnDefs": [{
+            type: 'index',
+            targets: 0
+        }],
+        "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "All"]],
+        "responsive": true,
+        "columns": [
+            {"data": "fileName", "className": "text-center"},
+            {"data": "routeId", "className": "text-center"},
+            {"data": "exchangesTotal", "className": "text-right"},
+            {"data": "exchangesInflight", "className": "text-right"},
+            {"data": "exchangesFailed", "className": "text-right"},
+            {"data": "startTimestamp", "className": "text-center"},
+            {"data": "state", "className": "text-center"}
+        ]
+//   한글 표현시 (http://ibrahimovic.tistory.com/m/20)
+//             ,
+//            "language": {
+//                "decimal" : "",
+//                "emptyTable" : "데이터가 없습니다.",
+//                "info" : "_START_ - _END_ (총 _TOTAL_ 명)",
+//                "infoEmpty" : "0명",
+//                "infoFiltered" : "(전체 _MAX_ 명 중 검색결과)",
+//                "infoPostFix" : "",
+//                "thousands" : ",",
+//                "lengthMenu" : "_MENU_ 개씩 보기",
+//                "loadingRecords" : "로딩중...",
+//                "processing" : "처리중...",
+//                "search" : "검색 : ",
+//                "zeroRecords" : "검색된 데이터가 없습니다.",
+//                "paginate" : {
+//                    "first" : "첫 페이지",
+//                    "last" : "마지막 페이지",
+//                    "next" : "다음",
+//                    "previous" : "이전"
+//                },
+//                "aria" : {
+//                    "sortAscending" : " :  오름차순 정렬",
+//                    "sortDescending" : " :  내림차순 정렬"
+//                }
+//            }
+    });
+
+    $(document).ready(function () {
+        //init
+        api_get("/routes", null,
+            function (data) {
+                data.forEach(function (value, index, array) {
+
+                    routeListTable.row.add(value).draw();
+
+                    $("#routeListTable tbody").on('click', 'tr', function () {
+                        console.log(routeListTable.row(this).data());
+                        //TODO: route 설정 환면으로 이동
+                    })
+                });
+            },
+            function() {
+                alert("error");
+            }
+        );
+
+        //top menu
+        var topMenu = new TopMenu();
+        topMenu.load();
+
+        //left menu
+        var leftMenu = new LeftMenu('liId');
+        leftMenu.load();
+
+
+    });
+
+
+
+
+</script>
+
+
+</html>

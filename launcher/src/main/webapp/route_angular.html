@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html ng-app="RouteApp" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"  crossorigin="anonymous">
+    <link rel="stylesheet" href="resources/css/route.css"  crossorigin="anonymous">
+
+    <!-- bootstrap load전에 jquery를 load해야됨 https://github.com/understrap/understrap/issues/449 참고 -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+
+    <script src="https://code.angularjs.org/1.7.5/angular.min.js"></script>
+    <script src="resources/vendor/angular-drag-and-drop-lists.min.js"></script>
+
+
+
+    <script src="resources/js/callApi.js" language="JavaScript"></script>
+    <script src="resources/js/common.js" language="JavaScript"></script>
+    <script src="resources/js/leftMenu.js" language="JavaScript"></script>
+    <script src="resources/js/topMenu.js" language="JavaScript"></script>
+    <script src="resources/js/route/route.js" language="JavaScript"></script>
+    <script src="resources/js/route/node/node.js" language="JavaScript"></script>
+
+    <title>Camel Admin</title>
+</head>
+
+<body class="fixed-nav sticky-footer" id="page-top">
+<!-- Navigation-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+</nav>
+<!-- end navigation -->
+&nbsp;
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2">
+            Route File List
+            <ul id="leftMenu" class="nav flex-column">
+            </ul>
+        </div>
+        <div class="col-sm-10">
+            <div class="card mb-3">
+                <div ng-controller="RouteGUICtrl">
+
+                    <div class="card-header">
+                        <i class="fa fa-table">Routes ({{result.routes.routesId}})</i>
+                    </div>
+
+                    <div class="card-body content">
+
+                        <!-- route -->
+                        <div class="card" ng-repeat="route in result.routes.routes">
+                            <div class="card-body">
+                                <div >
+                                    <h4 >{{route.id}}</h4>
+                                </div>
+
+                                <!-- component list -->
+                                <div class="nodes">
+                                    <div class="column" ng-repeat="node in route.list">
+                                        <header>{{node.tagName}}</header>
+                                        <div>{{node}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card">
+
+                            <div class="card-body">
+                                route 2
+                                <ul>
+                                    <li>component</li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--<div ng-repeat="routes in result.routes.routes">-->
+                        <!--<ul dnd-list="routes"-->
+                            <!--dnd-allowed-types="['route']"-->
+                            <!--dnd-external-sources="true"-->
+                            <!--dnd-dragover="dragoverCallback(index, external, type, callback)"-->
+                            <!--dnd-drop="dropCallback(index, item, external, type)">-->
+
+                            <!--&lt;!&ndash; route &ndash;&gt;-->
+                            <!--<li ng-repeat="route in result.routes.routes"-->
+                                <!--dnd-draggable="route"-->
+                                <!--dnd-type="'route'"-->
+                                <!--dnd-effect-allowed="copyMove"-->
+                                <!--dnd-moved="result.routes.routes.splice($index, 1)"-->
+                                <!--dnd-callback="route.list.length">-->
+
+                                <!--<div id="routeDiv" class="card-body content">-->
+
+                                    <!--<div>Route : {{route.id}}</div>-->
+
+                                    <!--<div class="row">-->
+                                        <!--&lt;!&ndash; gui &ndash;&gt;-->
+                                        <!--<div class="col-sm-7">-->
+                                            <!--<ul dnd-list="route.list"-->
+                                                <!--dnd-allowed-types="['component']"-->
+                                                <!--dnd-horizontal-list="true"-->
+                                                <!--dnd-external-sources="true"-->
+                                                <!--dnd-effect-allowed="move"-->
+                                                <!--dnd-dragover="dragoverCallback(index, external, type)"-->
+                                                <!--dnd-drop="dropCallback(index, item, external, type)"-->
+                                                <!--dnd-inserted="logListEvent('inserted at', index, external, type)"-->
+                                                <!--class="itemlist">-->
+
+                                                <!--<li ng-repeat="component in route.list"-->
+                                                    <!--dnd-draggable="component"-->
+                                                    <!--dnd-moved="route.list.splice($index, 1)"-->
+                                                    <!--dnd-effect-allowed="move"-->
+                                                    <!--dnd-selected="route.list.selected = component"-->
+                                                    <!--dnd-dragstart="logEvent('Started to drag an item')"-->
+                                                    <!--dnd-dragend="logEvent('Drag operation ended. Drop effect: ' + dropEffect)">-->
+                                                    <!--<div>-->
+                                                        <!--<div>{{component.tagName}}</div>-->
+                                                        <!--<div>{{component}}</div>-->
+                                                    <!--</div>-->
+
+                                                <!--</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                        <!--&lt;!&ndash; /gui &ndash;&gt;-->
+
+                                        <!--&lt;!&ndash; xml display &ndash;&gt;-->
+                                        <!--<div class="col-sm-3">-->
+                                            <!--<div class="jumbotron">-->
+                                                <!--<h3>XML</h3>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <!--&lt;!&ndash; /xml display &ndash;&gt;-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
+                </div>
+
+            </div>
+
+            <!--
+                        <div id="bin"></div>
+                        -->
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid-->
+<!-- /.content-wrapper-->
+<footer class="sticky-footer">
+    <div class="container">
+        <div class="text-center">
+            <small>Copyright © Your Website 2018</small>
+        </div>
+    </div>
+</footer>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fa fa-angle-up"></i>
+</a>
+
+
+</body>
+
+
+<script>
+    var routeData = JSON.parse('{"result_code":"OK","result_message":"정상","result":{"path":"file:///work/project/camel-launcher/src/test/resources/conf/route/process.xml","modifiyTime":1534218308000,"routes":{"routesId":"camel","routes":[{"tagName":"route","id":"process","autoStartup":true, "selected":null, "list":[{"tagName":"description","description":"description.... 처음에 있어야함"},{"tagName":"from","uri":"timer:hello?period=5000"},{"tagName":"log","message":"Message111:${body}"},{"tagName":"process","ref":null},{"tagName":"to","uri":"log:cool"}]}]}}}');
+    var app = angular.module('RouteApp', []);
+    app.controller('RouteGUICtrl', ['$scope', function ($scope) {
+        // Controller magic
+
+
+//        $scope.dragoverCallback = function (index, external, type, callback) {
+//            $scope.logListEvent('dragged over', index, external, type);
+//            // Invoke callback to origin for container types.
+//            if (type == 'container' && !external) {
+//                console.log('Container being dragged contains ' + callback() + ' items');
+//            }
+//            return index < 10; // Disallow dropping in the third row.
+//        };
+//
+//        $scope.dropCallback = function (index, item, external, type) {
+//            $scope.logListEvent('dropped at', index, external, type);
+//            // Return false here to cancel drop. Return true if you insert the item yourself.
+//            return item;
+//        };
+//
+//        $scope.logEvent = function (message) {
+//            console.log(message);
+//        };
+//
+//        $scope.logListEvent = function (action, index, external, type) {
+//            var message = external ? 'External ' : '';
+//            message += type + ' element was ' + action + ' position ' + index;
+//            console.log(message);
+//        };
+//
+//        // Initialize model
+//        $scope.model = [[], []];
+//        var id = 10;
+//        angular.forEach(['all', 'move', 'copy', 'link', 'copyLink', 'copyMove'], function (effect, i) {
+//            var container = {items: [], effectAllowed: effect};
+//            for (var k = 0; k < 7; ++k) {
+//                container.items.push({label: effect + ' ' + id++, effectAllowed: effect});
+//            }
+//            $scope.model[i % $scope.model.length].push(container);
+//        });
+//
+//        $scope.$watch('model', function (model) {
+//            $scope.modelAsJson = angular.toJson(model, true);
+//        }, true);
+
+
+        $scope.result = routeData.result;
+
+    }]);
+
+    //    $(document).ready(function () {
+    //
+    //        //현재 화면의 parameter확인
+    //        var fileName = parameter("fileName");
+    //
+    //        //change route id
+    //
+    //        //test용
+    //        fileName = "process";
+    //
+    ////        var route = new Route(fileName);
+    ////        //route.load();
+    ////        route.display("routeDiv");
+    ////
+    ////        //top menu
+    ////        var topMenu = new TopMenu();
+    ////        topMenu.load();
+    //
+    //        //left menu
+    //        //var leftMenu = new LeftMenu('leftMenu');
+    //        //leftMenu.load();
+    //    });
+
+
+</script>
+
+
+</html>

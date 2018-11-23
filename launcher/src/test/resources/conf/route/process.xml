@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes id="camel" xmlns="http://camel.apache.org/schema/spring">
+    <description>routes 정보</description>
+
+    <route id="process" autoStartup="true">
+        <description>description.... 처음에 있어야함</description>
+
+        <from uri="timer:hello?period=5000"/>
+
+        <log message="Message111:${body}"/>
+
+        <process ref="sample"/>
+
+        <to uri="log:cool"/>
+
+    </route>
+
+</routes>
