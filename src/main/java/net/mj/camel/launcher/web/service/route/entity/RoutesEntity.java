@@ -1,20 +1,22 @@
 package net.mj.camel.launcher.web.service.route.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import net.mj.camel.launcher.web.common.route.xml.RouteXmlConstants;
-import net.mj.camel.launcher.web.common.route.xml.RouteXmlTagNameConstants;
-import net.mj.camel.launcher.web.common.route.xml.RoutesAttributeEnum;
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.Namespace;
-import org.jdom2.input.SAXBuilder;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.Namespace;
+import org.jdom2.input.SAXBuilder;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import lombok.Getter;
+import net.mj.camel.launcher.web.common.route.xml.RouteXmlConstants;
+import net.mj.camel.launcher.web.common.route.xml.RouteXmlTagNameConstants;
+import net.mj.camel.launcher.web.common.route.xml.RoutesAttributeEnum;
 
 public class RoutesEntity {
     @Getter

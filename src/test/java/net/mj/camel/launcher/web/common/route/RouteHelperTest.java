@@ -1,5 +1,8 @@
 package net.mj.camel.launcher.web.common.route;
 
+import java.io.ByteArrayInputStream;
+import java.util.List;
+
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Route;
@@ -16,9 +19,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
 import org.w3c.dom.Document;
-
-import java.io.ByteArrayInputStream;
-import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.DEFINED_PORT) // server.port 설정에 따른다.

@@ -6,6 +6,15 @@ import java.io.FileReader;
 import java.io.FilenameFilter;
 
 public class FileHelper {
+	
+	/**
+	 * 윈도우 file seperator를 linux 형식으로 변경
+	 * @param path
+	 * @return
+	 */
+	public static String convertSeparator (String path) {
+		return path.replaceAll("\\\\", "/");
+	}
 
 	/**
 	 * 파일 이름을 제외한 Path를 구한다

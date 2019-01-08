@@ -14,3 +14,7 @@ target/classes/*
 .project
 .idea
 .settings/
+/target/
+.classpath
+.tern-project
+

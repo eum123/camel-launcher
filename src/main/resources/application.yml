@@ -19,7 +19,7 @@ camel:
     conf: ${camel.path.home}/conf
   springboot:
     xml-routes-reload-directory: ${camel.path.conf}/route/
-    xml-routes: file://${camel.path.conf}/route/*.xml
+    xml-routes: ${camel.path.conf}/route/*.xml
     main-run-controller: true
 
 
@@ -37,8 +37,8 @@ camel:
     conf: ${camel.path.home}/conf
   springboot:
     xml-routes-reload-directory: ${camel.path.conf}/route/
-    xml-routes: file://${camel.path.conf}/route/process.xml
+    xml-routes: ${camel.path.conf}/route/process.xml
     main-run-controller: true
 
 logging:
-  config: file://${camel.path.conf}/logback-spring.xml
+   config: ${camel.path.conf}/logback-spring.xml

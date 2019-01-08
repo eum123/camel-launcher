@@ -1,10 +1,12 @@
 package net.mj.camel.launcher.web.common;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import net.mj.camel.launcher.web.common.ApiResponseCode;
 
-@Data
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ApiResponse<T> {
     @JsonProperty("result_code")
     private ApiResponseCode code;

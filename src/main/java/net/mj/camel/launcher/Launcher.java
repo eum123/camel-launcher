@@ -14,7 +14,7 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 
 @SpringBootApplication
-@ImportResource(locations = "file://${camel.path.conf}/${camel.spring.core-resource-name}")
+@ImportResource(locations = "file:///${camel.path.conf}/${camel.spring.core-resource-name}")
 public class Launcher {
 	private static final Logger log = LoggerFactory.getLogger(Launcher.class);
 

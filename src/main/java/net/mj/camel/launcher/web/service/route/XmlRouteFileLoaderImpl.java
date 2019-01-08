@@ -1,15 +1,6 @@
 package net.mj.camel.launcher.web.service.route;
 
-import lombok.Setter;
-import net.mj.camel.launcher.helper.FileHelper;
-import net.mj.camel.launcher.web.service.route.entity.RouteFileEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
-
-import java.net.URI;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
@@ -21,6 +12,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
+
+import lombok.Setter;
+import net.mj.camel.launcher.helper.FileHelper;
+import net.mj.camel.launcher.web.service.route.entity.RouteFileEntity;
 
 @Service
 public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
@@ -53,8 +54,10 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
 
     @Scheduled(fixedDelay = 5000)
     public void update() throws Exception {
+    	routesPath = FileHelper.convertSeparator(routesPath);
+    	
         String filename = FileHelper.getFilename(routesPath);
-        Path path = Paths.get(new URI(FileHelper.getOriginPath(routesPath)));
+        Path path = Paths.get(new File(FileHelper.getOriginPath(routesPath)).toURI());
 
         try {
 
