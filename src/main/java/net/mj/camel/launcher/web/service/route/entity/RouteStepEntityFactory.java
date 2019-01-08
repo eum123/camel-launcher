@@ -1,14 +1,16 @@
 package net.mj.camel.launcher.web.service.route.entity;
 
+import org.jdom2.Element;
+
 import net.mj.camel.launcher.web.common.route.xml.RouteXmlTagNameConstants;
 import net.mj.camel.launcher.web.service.route.entity.endpoint.FromEntity;
 import net.mj.camel.launcher.web.service.route.entity.endpoint.ToEntity;
 import net.mj.camel.launcher.web.service.route.entity.group.DoTryEntity;
 import net.mj.camel.launcher.web.service.route.entity.group.SetBodyEntity;
+import net.mj.camel.launcher.web.service.route.entity.group.TransformEntity;
 import net.mj.camel.launcher.web.service.route.entity.processor.CustomProcessEntity;
 import net.mj.camel.launcher.web.service.route.entity.processor.DescriptionEntity;
 import net.mj.camel.launcher.web.service.route.entity.processor.LogProcessEntity;
-import org.jdom2.Element;
 
 public class RouteStepEntityFactory {
     public static RouteStepEntity newInstance(Element element) {
@@ -29,6 +31,8 @@ public class RouteStepEntityFactory {
             return new DoTryEntity();
         } else if(tagName.equals(RouteXmlTagNameConstants.SETBODY)) {
             return new SetBodyEntity();
+        } else if(tagName.equals(RouteXmlTagNameConstants.TRANSFORM)) {
+            return new TransformEntity();
         } else {
             throw new RuntimeException("unknown tag : " + tagName);
         }

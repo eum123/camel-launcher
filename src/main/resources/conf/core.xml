@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
   http://www.springframework.org/schema/beans
   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
   http://www.springframework.org/schema/tx
@@ -13,21 +14,29 @@
   http://camel.apache.org/schema/spring
   http://camel.apache.org/schema/spring/camel-spring.xsd">
 
-
-    <camelContext xmlns="http://camel.apache.org/schema/spring">
-        <!-- common thread pool profile -->
-        <threadPoolProfile id="threadPool"
-                           defaultProfile="false" poolSize="30" maxPoolSize="255" maxQueueSize="1000"
-                           allowCoreThreadTimeOut="false" rejectedPolicy="Abort"/>
-
-        <threadPoolProfile id="threadPool1"
-                           defaultProfile="false" poolSize="30" maxPoolSize="255" maxQueueSize="1000"
-                           allowCoreThreadTimeOut="false" rejectedPolicy="Abort"/>
+	<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- custom converter -->
+	<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<bean id="messageHistoryConverter"
+		class="net.mj.camel.launcher.converter.MessageHistoryConverters" />
 
 
-    </camelContext>
+	<camelContext trace="true"
+		xmlns="http://camel.apache.org/schema/spring">
+		<!-- common thread pool profile -->
+		<threadPoolProfile id="threadPool"
+			defaultProfile="false" poolSize="30" maxPoolSize="255"
+			maxQueueSize="1000" allowCoreThreadTimeOut="false"
+			rejectedPolicy="Abort" />
+
+		<threadPoolProfile id="threadPool1"
+			defaultProfile="false" poolSize="30" maxPoolSize="255"
+			maxQueueSize="1000" allowCoreThreadTimeOut="false"
+			rejectedPolicy="Abort" />
+
+	</camelContext>
 
 
-    <import resource="file:${camel.path.conf}/customer-beans.xml" />
+	<import resource="file:${camel.path.conf}/customer-beans.xml" />
 
 </beans>

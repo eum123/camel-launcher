@@ -32,7 +32,7 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
     private Map<String, RouteFileEntity> routeFilesModifyTime = new ConcurrentHashMap<>();
 
     @Setter
-    @Value("${camel.springboot.xml-routes}")
+    @Value("${camel.springboot.xml-routes-reload-directory}")
     private String routesPath;
 
     private final Lock lock = new ReentrantLock();
@@ -56,8 +56,9 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
     public void update() throws Exception {
     	routesPath = FileHelper.convertSeparator(routesPath);
     	
-        String filename = FileHelper.getFilename(routesPath);
-        Path path = Paths.get(new File(FileHelper.getOriginPath(routesPath)).toURI());
+        String filename = "*.xml";
+       
+        Path path = new File(routesPath).toPath();
 
         try {
 

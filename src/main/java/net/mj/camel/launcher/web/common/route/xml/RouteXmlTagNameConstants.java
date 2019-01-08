@@ -11,5 +11,6 @@ public class RouteXmlTagNameConstants {
     public static final String DOTRY = "dotry";
     public static final String SETBODY = "setBody";
     public static final String SIMPLE = "simple";
+    public static final String CONSTANT = "constant";
 }
 

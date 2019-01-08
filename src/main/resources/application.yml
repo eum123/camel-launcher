@@ -5,6 +5,8 @@ spring:
 
 server:
   port: 7070
+  
+
 
 ---
 #local
@@ -19,10 +21,11 @@ camel:
     conf: ${camel.path.home}/conf
   springboot:
     xml-routes-reload-directory: ${camel.path.conf}/route/
-    xml-routes: ${camel.path.conf}/route/*.xml
+    xml-routes: file:/${camel.path.conf}/route/*.xml
     main-run-controller: true
 
-
+logging:
+    config: ${camel.path.conf}/logback-spring.xml
 ---
 # test
 
@@ -33,7 +36,7 @@ camel:
   spring:
     core-resource-name: core.xml
   path:
-    home: ${user.dir}/src/test/resources
+    home: /${user.dir}/src/test/resources
     conf: ${camel.path.home}/conf
   springboot:
     xml-routes-reload-directory: ${camel.path.conf}/route/
@@ -41,4 +44,5 @@ camel:
     main-run-controller: true
 
 logging:
-   config: ${camel.path.conf}/logback-spring.xml
+    config: ${camel.path.conf}/logback-spring.xml
+   

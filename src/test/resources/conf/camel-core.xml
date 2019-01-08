@@ -21,7 +21,7 @@
 	<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 	<!-- camel에 필요한 공통 설정 -->
 	<!--+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-	<camelContext xmlns="http://camel.apache.org/schema/spring" >
+	<camelContext trace="true" xmlns="http://camel.apache.org/schema/spring" >
 		<!-- common thread pool profile -->
 		<threadPoolProfile id="threadPool"
 			defaultProfile="false" poolSize="30" maxPoolSize="255" maxQueueSize="1000"

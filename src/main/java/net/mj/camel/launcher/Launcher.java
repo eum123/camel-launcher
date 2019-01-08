@@ -1,6 +1,6 @@
 package net.mj.camel.launcher;
 
-import org.apache.camel.spring.Main;
+import org.apache.camel.spring.boot.CamelSpringBootApplicationController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,12 +9,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ImportResource;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 
 @SpringBootApplication
-@ImportResource(locations = "file:///${camel.path.conf}/${camel.spring.core-resource-name}")
+@ImportResource(locations = "file:${camel.path.conf}/${camel.spring.core-resource-name}")
 public class Launcher {
 	private static final Logger log = LoggerFactory.getLogger(Launcher.class);
 
@@ -25,10 +24,13 @@ public class Launcher {
 
 		ApplicationContext applicationContext = new SpringApplication(Launcher.class).run(args);
 
-		Main main = new Main();
-		main.setApplicationContext((AbstractApplicationContext)applicationContext);
-		main.setFileWatchDirectory(reloadDirectory);
-		main.run();
+//		Main main = new Main();
+//		main.setApplicationContext((AbstractApplicationContext)applicationContext);
+//		main.setFileWatchDirectory(reloadDirectory);
+//		main.run();
+		
+		
+		   // applicationController.blockMainThread();
 	}
 
 	/**

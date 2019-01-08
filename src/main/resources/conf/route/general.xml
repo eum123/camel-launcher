@@ -19,7 +19,7 @@
 
 	<routes id="camel" xmlns="http://camel.apache.org/schema/spring" >
 
-		<route id="timerFoo" >
+		<route id="timerFoo" autoStartup="true"  >
 			<description>description.... 처음에 있어야함</description>
 
 			<from uri="timer:foo"/>
@@ -28,9 +28,9 @@
 			<log message="Foo said: ${body}"/>
 
 		</route>
+ 
 
-
-		<route id="foo">
+		<route id="foo" autoStartup="true" >
 			<from uri="direct:foo"/>
 			<transform>
 				<!-- and I can be changed too -->

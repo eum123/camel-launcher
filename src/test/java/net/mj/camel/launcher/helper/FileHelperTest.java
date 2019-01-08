@@ -32,8 +32,23 @@ public class FileHelperTest {
 	public void fileSeperatorTest() throws URISyntaxException {
 		String path = "D:\\aaa\\aaa.txt";
 		
-		Assert.isTrue("D:/aaa/aaa.txt".equals(FileHelper.convertSeparator(path)));
+		Assert.isTrue("D:/aaa/aaa.txt".contentEquals(FileHelper.convertSeparator(path)));
 		
 		Paths.get(new File(FileHelper.getOriginPath(path)).toURI());
+	}
+	
+	@Test
+	public void getOriginPath() {
+		
+		String path = "D:/900.private/10.project/camel-launcher/src/main/resources/conf/route/*.xml";
+		String originPath = FileHelper.getOriginPath(path);
+		
+		Assert.isTrue("D:/900.private/10.project/camel-launcher/src/main/resources/conf/route/".contentEquals(originPath));
+		
+		
+		Path p = new File(originPath).toPath();
+		Assert.isTrue("D:\\900.private\\10.project\\camel-launcher\\src\\main\\resources\\conf\\route".contentEquals(p.toString()));
+		
+		
 	}
 }
