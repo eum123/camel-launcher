@@ -23,7 +23,7 @@ import lombok.Setter;
 import net.mj.camel.launcher.helper.FileHelper;
 import net.mj.camel.launcher.web.service.route.entity.RouteFileEntity;
 
-//@Service
+@Service
 public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
 
     private static final Logger log = LoggerFactory.getLogger(XmlRouteFileLoaderImpl.class);
@@ -52,9 +52,9 @@ public class XmlRouteFileLoaderImpl implements XmlRouteFileLoader {
         }
     }
 
-    //@Scheduled(fixedDelay = 5000)
+    @Scheduled(fixedDelay = 5000)
     public void update() throws Exception {
-    	//routesPath = FileHelper.convertSeparator(routesPath);
+    	routesPath = FileHelper.convertSeparator(routesPath);
     	
         String filename = "*.xml";
        

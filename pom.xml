@@ -25,6 +25,87 @@
 	</properties>
 
 
+	<build>
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>${basedir}/src/main/resources</directory>
+				<includes>
+					<include>**/application.yml</include>
+				</includes>
+			</resource>
+			<resource>
+				<filtering>true</filtering>
+				<directory>${basedir}/src/main/resources</directory>
+				<excludes>
+					<exclude>**/application.yml</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId> 
+				<version>3.0.2</version> <configuration> <archive> <manifest> <mainClass>org.springframework.boot.loader.JarLauncher</mainClass> 
+				</manifest> <manifestEntries> <Start-Class>net.camel.Launcher</Start-Class> 
+				</manifestEntries> </archive> </configuration> </plugin> -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/WebUI.java</exclude>
+						<exclude>**/LauncherTest.java</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/target/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<descriptors>
+						<!-- 위에서 작성한 파일명 기술 -->
+						<descriptor>assembly-bin.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>bin</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
 
 
@@ -53,6 +134,15 @@
 			<version>1.1.0</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework.hateoas</groupId>
+			<artifactId>spring-hateoas</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.plugin</groupId>
+			<artifactId>spring-plugin-core</artifactId>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-jsp -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -75,20 +165,11 @@
 			<version>2.2.11</version>
 		</dependency>
 		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-core</artifactId>
-			<version>2.2.11</version>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-impl</artifactId>
-			<version>2.2.11</version>
-		</dependency>
-		<dependency>
 			<groupId>javax.activation</groupId>
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+		<!-- //openJDK에서 없는 부분 추가 -->
 
 		<!-- lets use hibernate by default -->
 		<dependency>
@@ -108,7 +189,7 @@
 			<groupId>org.hsqldb</groupId>
 			<artifactId>hsqldb</artifactId>
 		</dependency>
-
+		<!-- //lets use hibernate by default -->
 
 
 		<!-- Camel Spring Boot Starter dependency -->
@@ -142,10 +223,9 @@
 			<artifactId>camel-spring-boot-starter</artifactId>
 			<version>${camel.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+
+
+
 
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -170,14 +250,12 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<scope>commpile</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.jdom/jdom2 -->
 		<dependency>
 			<groupId>org.jdom</groupId>
 			<artifactId>jdom2</artifactId>
-			<version>2.0.6</version>
 		</dependency>
 
 		<!-- Test dependency -->
@@ -201,25 +279,4 @@
 
 	</dependencies>
 
-	<build>
-		<plugins>
-			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-jar-plugin</artifactId> 
-				<version>3.0.2</version> <configuration> <archive> <manifest> <mainClass>org.springframework.boot.loader.JarLauncher</mainClass> 
-				</manifest> <manifestEntries> <Start-Class>net.camel.Launcher</Start-Class> 
-				</manifestEntries> </archive> </configuration> </plugin> -->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.camel</groupId>
-				<artifactId>camel-maven-plugin</artifactId>
-				<version>${camel.version}</version>
-				<configuration>
-					<!-- turn on reload when the XML file is updated in the source code -->
-					<fileWatcherDirectory>src/main/resources/conf/router</fileWatcherDirectory>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>

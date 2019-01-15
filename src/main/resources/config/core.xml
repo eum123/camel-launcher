@@ -37,6 +37,4 @@
 	</camelContext>
 
 
-	<import resource="file:${camel.path.conf}/customer-beans.xml" />
-
 </beans>

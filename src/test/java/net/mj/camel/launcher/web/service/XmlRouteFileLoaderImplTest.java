@@ -13,6 +13,7 @@ import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+
 public class XmlRouteFileLoaderImplTest {
 
     private static final Logger log = LoggerFactory.getLogger(XmlRouteFileLoaderImplTest.class);
@@ -21,7 +22,7 @@ public class XmlRouteFileLoaderImplTest {
     @Test
     public void getRouteEntityList() throws Exception {
 
-        String path = "file://" +System.getProperty("user.dir") + "/src/test/resources/conf/route/";
+        String path = "file:" + System.getProperty("user.dir") + "/src/test/resources/route/";
 
         XmlRouteFileLoaderImpl loader = new XmlRouteFileLoaderImpl();
         loader.setRoutesPath(path);
@@ -35,7 +36,7 @@ public class XmlRouteFileLoaderImplTest {
 
     @Test
     public void routeFileContent() throws Exception {
-        String path = "file://" +System.getProperty("user.dir") + "/src/test/resources/conf/route/";
+        String path = "file:" + System.getProperty("user.dir") + "/src/test/resources/route/";
 
         XmlRouteFileLoaderImpl loader = new XmlRouteFileLoaderImpl();
         loader.setRoutesPath(path);

@@ -34,7 +34,7 @@
 			<from uri="direct:foo"/>
 			<transform>
 				<!-- and I can be changed too -->
-				<constant>Hello Foo!!</constant>
+				<constant>Hello Foo!!!</constant>
 			</transform>
 		</route>
 

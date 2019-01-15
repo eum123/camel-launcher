@@ -7,42 +7,54 @@ server:
   port: 7070
   
 
-
+ 
 ---
-#local
-
+##############################
+### local
+##############################
 spring.profiles: local
 
+# camel directory
 camel:
-  spring:
-    core-resource-name: core.xml
-  path:
     home: ${user.dir}/src/main/resources
-    conf: ${camel.path.home}/conf
-  springboot:
-    xml-routes-reload-directory: ${camel.path.conf}/route/
-    xml-routes: file:/${camel.path.conf}/route/*.xml
-    main-run-controller: true
+    config: ${camel.home}/config
+    route: ${camel.home}/route
+
+# monitoring
+management:
+    security:
+        enabled: false
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+    context-path: "/monitoring"
+    port: "9090"
+                
+
+# camel route
+camel:
+    springboot:
+        xml-routes-reload-directory: ${camel.route}
+        xml-routes: file:${camel.route}/*.xml
+        main-run-controller: true
 
 logging:
-    config: ${camel.path.conf}/logback-spring.xml
+    config: ${camel.config}/logback-spring.xml
 ---
 # test
 
 spring.profiles: test
 
-
+# camel directory
 camel:
-  spring:
-    core-resource-name: core.xml
-  path:
-    home: /${user.dir}/src/test/resources
-    conf: ${camel.path.home}/conf
-  springboot:
-    xml-routes-reload-directory: ${camel.path.conf}/route/
-    xml-routes: ${camel.path.conf}/route/process.xml
-    main-run-controller: true
+    home: ${user.dir}/src/test/resources
+    config: ${camel.home}/config
+    route: ${camel.home}/route
 
-logging:
-    config: ${camel.path.conf}/logback-spring.xml
-   
+# camel route
+camel:
+    springboot:
+        xml-routes-reload-directory: ${camel.route}
+        xml-routes: file:${camel.route}/*.xml
+        main-run-controller: true
